@@ -2,6 +2,7 @@ import os
 import openai 
 import speech_recognition as sr 
 import socket
+#heybaberiga
 # Initialize recognizer 
 recognizer = sr.Recognizer() 
 
