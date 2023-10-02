@@ -4,7 +4,7 @@ import speech_recognition as sr
 import socket
 # Initialize recognizer 
 recognizer = sr.Recognizer() 
-
+#sssss
 # Capture audio from the microphone 
 with sr.Microphone() as source: 
     print("Which box should I move?") 
