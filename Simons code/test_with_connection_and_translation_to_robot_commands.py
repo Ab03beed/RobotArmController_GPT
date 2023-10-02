@@ -3,7 +3,6 @@ import openai
 import speech_recognition as sr 
 import socket
 # Initialize recognizer 
-#ABBE
 recognizer = sr.Recognizer() 
 
 # Capture audio from the microphone 

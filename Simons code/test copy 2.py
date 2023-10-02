@@ -1,7 +1,6 @@
 import os 
 import openai 
 import speech_recognition as sr 
-import time # Abbe
 # Initialize recognizer 
 recognizer = sr.Recognizer() 
 
