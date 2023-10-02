@@ -1,10 +1,10 @@
 import os 
 import openai 
 import speech_recognition as sr 
-#ABBE HAR ÄNDRAT HÄR.
+#rre-----------------------reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeegregeg
 # Initialize recognizer 
 recognizer = sr.Recognizer() 
-
+#-----------------------------324324324
 # Capture audio from the microphone 
 with sr.Microphone() as source: 
     print("WHich box should I move?") 
