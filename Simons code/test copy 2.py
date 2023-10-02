@@ -3,7 +3,7 @@ import openai
 import speech_recognition as sr 
 # Initialize recognizer 
 recognizer = sr.Recognizer() 
-
+#ofdskkdfsp
 # Capture audio from the microphone 
 with sr.Microphone() as source: 
     print("WHich box should I move?") 
