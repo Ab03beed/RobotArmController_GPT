@@ -1,11 +1,16 @@
 import os 
 import openai 
 import speech_recognition as sr 
-
+#rre-----------------------reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeegregeg
 # Initialize recognizer 
 recognizer = sr.Recognizer() 
-
+#-----------------------------324324324
 # Capture audio from the microphone 
+<<<<<<< HEAD
+#ABBE VILL SKRIVA HÄR.
+=======
+#XDXDXDXDXDXDXD
+>>>>>>> a888472c3d3ec26487c9bb429305b7423929158a
 with sr.Microphone() as source: 
     print("WHich box should I move?") 
     audio = recognizer.listen(source) 
