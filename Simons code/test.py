@@ -6,6 +6,7 @@ import speech_recognition as sr
 recognizer = sr.Recognizer() 
 #-----------------------------324324324
 # Capture audio from the microphone 
+#ABBE VILL SKRIVA HÄR.
 with sr.Microphone() as source: 
     print("WHich box should I move?") 
     audio = recognizer.listen(source) 
