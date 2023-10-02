@@ -1,7 +1,7 @@
 import os 
 import openai 
 import speech_recognition as sr 
-
+#ABBE HAR ÄNDRAT HÄR.
 # Initialize recognizer 
 recognizer = sr.Recognizer() 
 
