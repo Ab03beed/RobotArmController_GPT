@@ -2,7 +2,6 @@ import os
 import openai 
 import speech_recognition as sr 
 import socket
-#heybaberiga
 # Initialize recognizer 
 #ABBE
 recognizer = sr.Recognizer() 
@@ -94,7 +93,7 @@ gpt_call = openai.ChatCompletion.create(
     ] 
 ) 
 gpt_response = gpt_call['choices'][0]['message']['content'] 
-print(gpt_response) 
+print(gpt_response) #sdfasdd
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
