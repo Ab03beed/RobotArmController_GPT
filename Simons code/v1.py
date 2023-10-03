@@ -2,6 +2,12 @@ import os
 import openai 
 import speech_recognition as sr 
 import socket
+import time
+
+RASPBERRY_PI_IP = "YOUR_RASPBERRY_PI_IP"  # Replace with your Raspberry Pi's IP address
+RASPBERRY_PI_PORT = "YOUR_RASPBERRY_PI_PORT"  # Replace with your Raspberry Pi's port number
+CONTROL_UNIT_IP = "YOUR_CONTROL_UNIT_IP"  # Replace with your control unit's IP address
+CONTROL_UNIT_PORT = "YOUR_CONTROL_UNIT_PORT"  # Replace with your control unit's port number
 
 # Initialize recognizer 
 recognizer = sr.Recognizer() 
@@ -96,21 +102,65 @@ gpt_response = gpt_call['choices'][0]['message']['content']
 print(gpt_response) #sdfasdd
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Connection to the control unit socket and arm
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#Establishing connection to the control unit socket and arm
-CONTROL_UNIT_IP = "YOUR_CONTROL_UNIT_IP"  # Replace with your control unit's IP address
-CONTROL_UNIT_PORT = "YOUR_CONTROL_UNIT_PORT"  # Replace with your control unit's port number
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((CONTROL_UNIT_IP, CONTROL_UNIT_PORT))
 
-def send_to_robotic_arm(command): #Sends a command to the Mitsubishi robotic arm over a socket connection, waits for a response, and then returns that response as a string.
-    """Send command to the Mitsubishi robotic arm."""
-    sock.sendall(command.encode())#After sending the command to the robotic arm
-    response = sock.recv(1024) #Waits for a response from the robotic arm. 1024 specifies the maximum amount of data (in bytes) that should be read at once.
-    return response.decode() 
+def send_to_robotic_arm(command):
+    """Send command to the Mitsubishi robotic arm, log it, and wait for acknowledgment."""
+    # Log the command to a text file
+    with open("commands_log.txt", "a") as file:
+        file.write(command + "\n")
+    
+    # Send the command to the robotic arm
+    sock.sendall(command.encode())
+    
+    # Set a timeout for acknowledgment
+    TIMEOUT = 10  # seconds
+    start_time = time.time()
+    
+    # Wait for an acknowledgment from the robotic arm
+    while True:
+        response = sock.recv(1024).decode()
+        if response == "ACK" or response == "DONE":  # Check if the response matches the expected acknowledgment
+            break
+        elif time.time() - start_time > TIMEOUT:  # Check if the timeout has been exceeded
+            print("Timeout waiting for acknowledgment from the robotic arm.")
+            return "TIMEOUT"
+    
+    return response
 
-# Mapping high-level functions to real-world counterparts
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Connection to the control unit socket and arm
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+def send_to_raspberry_pi(command):
+    """Send command to the Raspberry Pi, and wait for acknowledgment."""
+    
+    # Create a socket connection to the Raspberry Pi
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((RASPBERRY_PI_IP, RASPBERRY_PI_PORT))
+        s.sendall(command.encode())
+        
+        # Set a timeout for acknowledgment
+        TIMEOUT = 10  # seconds
+        start_time = time.time()
+        
+        while True:
+            response = s.recv(1024).decode()
+            if response == "ACK":  # Check if the response matches the expected acknowledgment
+                break
+            elif time.time() - start_time > TIMEOUT:  # Check if the timeout has been exceeded
+                print("Timeout waiting for acknowledgment from the Raspberry Pi.")
+                return "TIMEOUT"
+    
+    return response
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Mapping high-level functions to robot arm- and hand counterparts
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def real_go_to_location(x, y, z):
     # Translate to the actual command for the Mitsubishi robotic arm
     command = f"MOVE TO {x},{y},{z}"  #PLACEHOLDER: replace with the actual command format
@@ -118,14 +168,26 @@ def real_go_to_location(x, y, z):
     print(response)  # For debugging purposes
 
 def real_grab():
-    # Communicate with the Raspberry Pi to close the claw
-    #PLACEHOLDER: replace with the actual method to communicate with the Raspberry Pi
-    pass
+    """Instruct the Raspberry Pi to close the claw."""
+    command = "GRAB"  # This is a placeholder command. Adjust based on your Raspberry Pi's expected command format.
+    response = send_to_raspberry_pi(command)
+    if response == "ACK":
+        print("Claw closed successfully.")
+    elif response == "TIMEOUT":
+        print("Timeout while waiting for the claw to close.")
+    else:
+        print(f"Unexpected response from Raspberry Pi: {response}")
 
 def real_release():
-    # Communicate with the Raspberry Pi to open the claw
-    #PLACEHOLDER: replace with the actual method to communicate with the Raspberry Pi
-    pass
+    """Instruct the Raspberry Pi to open the claw."""
+    command = "RELEASE"  # This is a placeholder command. Adjust based on your Raspberry Pi's expected command format.
+    response = send_to_raspberry_pi(command)
+    if response == "ACK":
+        print("Claw opened successfully.")
+    elif response == "TIMEOUT":
+        print("Timeout while waiting for the claw to open.")
+    else:
+        print(f"Unexpected response from Raspberry Pi: {response}")
 
 #Parsing and executing the gpt_response
 for line in gpt_response.split("\n"):  # Split the gpt_response into individual lines and iterate over each line.
