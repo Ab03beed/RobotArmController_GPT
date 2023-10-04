@@ -119,14 +119,22 @@ def establish_connection(ip, port):
 control_unit_socket = establish_connection(CONTROL_UNIT_IP, CONTROL_UNIT_PORT)#The establish_connection function is invoked with the CONTROL_UNIT_IP and CONTROL_UNIT_PORT as arguments.
 raspberry_pi_socket = establish_connection(RASPBERRY_PI_IP, RASPBERRY_PI_PORT)#--''--
 
+
+# Define a function to save commands to a text file
+def save_command_to_file(command):
+    with open("executed_commands.txt", "a") as file:
+        file.write(command + "\n")
+
 def send_to_robotic_arm(command):
     control_unit_socket.sendall(command.encode())
     response = control_unit_socket.recv(1024).decode()
+    save_command_to_file(command)  # Save the command to a text file
     return response
 
 def send_to_raspberry_pi(command):
     raspberry_pi_socket.sendall(command.encode())
     response = raspberry_pi_socket.recv(1024).decode()
+    save_command_to_file(command)  # Save the command to a text file
     return response
 
 def real_go_to_location(x, y, z):
