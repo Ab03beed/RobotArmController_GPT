@@ -1,26 +1,33 @@
-import os 
-import openai 
-import speech_recognition as sr 
+import os
+import openai
+import speech_recognition as sr
 import socket
+import time
 
-# Initialize recognizer 
-recognizer = sr.Recognizer() 
+# Constants for Raspberry Pi and Control Unit
+RASPBERRY_PI_IP = "YOUR_RASPBERRY_PI_IP"
+RASPBERRY_PI_PORT = int("YOUR_RASPBERRY_PI_PORT")
+CONTROL_UNIT_IP = "YOUR_CONTROL_UNIT_IP"
+CONTROL_UNIT_PORT = int("YOUR_CONTROL_UNIT_PORT")
 
-# Capture audio from the microphone 
-with sr.Microphone() as source: 
-    print("Which box should I move?") 
-    audio = recognizer.listen(source) 
+# Initialize recognizer
+recognizer = sr.Recognizer()
 
-# Convert audio to text using the default recognizer 
-try: 
-    voice_command = recognizer.recognize_google(audio) 
-    print(f"You said: {voice_command}") 
-except sr.UnknownValueError: 
-    print("Could not understand the audio.") 
-    exit() 
-except sr.RequestError: 
-    print("Could not request results from the speech recognition service.") 
-    exit() 
+# Capture audio from the microphone
+with sr.Microphone() as source:
+    print("Which box should I move?")
+    audio = recognizer.listen(source)
+
+# Convert audio to text using the default recognizer
+try:
+    voice_command = recognizer.recognize_google(audio)
+    print(f"You said: {voice_command}")
+except sr.UnknownValueError:
+    print("Could not understand the audio.")
+    exit()
+except sr.RequestError:
+    print("Could not request results from the speech recognition service.")
+    exit()
 
 # List of possible transcriptions for each box 
 box_1_variants = [ 
@@ -95,46 +102,65 @@ gpt_call = openai.ChatCompletion.create(
 gpt_response = gpt_call['choices'][0]['message']['content'] 
 print(gpt_response) #sdfasdd
 
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Establishing connection to the control unit socket and arm
+def connect_to_control_unit():
+    """Establish connection to the control unit."""
+    control_unit_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    control_unit_socket.connect((CONTROL_UNIT_IP, CONTROL_UNIT_PORT))
+    return control_unit_socket
 
-#Establishing connection to the control unit socket and arm
-CONTROL_UNIT_IP = "YOUR_CONTROL_UNIT_IP"  # Replace with your control unit's IP address
-CONTROL_UNIT_PORT = "YOUR_CONTROL_UNIT_PORT"  # Replace with your control unit's port number
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect((CONTROL_UNIT_IP, CONTROL_UNIT_PORT))
-
-def send_to_robotic_arm(command): #Sends a command to the Mitsubishi robotic arm over a socket connection, waits for a response, and then returns that response as a string.
-    """Send command to the Mitsubishi robotic arm."""
-    sock.sendall(command.encode())#After sending the command to the robotic arm
-    response = sock.recv(1024) #Waits for a response from the robotic arm. 1024 specifies the maximum amount of data (in bytes) that should be read at once.
-    return response.decode() 
+def connect_to_raspberry_pi():
+    """Establish connection to the Raspberry Pi."""
+    raspberry_pi_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    raspberry_pi_socket.connect((RASPBERRY_PI_IP, RASPBERRY_PI_PORT))
+    return raspberry_pi_socket
 
 # Mapping high-level functions to real-world counterparts
-def real_go_to_location(x, y, z):
-    # Translate to the actual command for the Mitsubishi robotic arm
-    command = f"MOVE TO {x},{y},{z}"  #PLACEHOLDER: replace with the actual command format
-    response = send_to_robotic_arm(command)
-    print(response)  # For debugging purposes
+def real_go_to_location(x, y, z, control_unit_socket):
+    """Send move command to the control unit."""
+    command = f"MOVE TO {x},{y},{z}"
+    control_unit_socket.sendall(command.encode())
+    response = control_unit_socket.recv(1024).decode()
+    if "SUCCESS" not in response:
+        raise Exception(f"Failed to move to location {x},{y},{z}. Error: {response}")
+    print(response)
 
-def real_grab():
-    # Communicate with the Raspberry Pi to close the claw
-    #PLACEHOLDER: replace with the actual method to communicate with the Raspberry Pi
-    pass
+def real_grab(raspberry_pi_socket):
+    """Send grab command to the Raspberry Pi."""
+    command = "GRAB"
+    raspberry_pi_socket.sendall(command.encode())
+    response = raspberry_pi_socket.recv(1024).decode()
+    if "SUCCESS" not in response:
+        raise Exception(f"Failed to grab. Error: {response}")
+    print(response)
 
-def real_release():
-    # Communicate with the Raspberry Pi to open the claw
-    #PLACEHOLDER: replace with the actual method to communicate with the Raspberry Pi
-    pass
+def real_release(raspberry_pi_socket):
+    """Send release command to the Raspberry Pi."""
+    command = "RELEASE"
+    raspberry_pi_socket.sendall(command.encode())
+    response = raspberry_pi_socket.recv(1024).decode()
+    if "SUCCESS" not in response:
+        raise Exception(f"Failed to release. Error: {response}")
+    print(response)
 
-#Parsing and executing the gpt_response
-for line in gpt_response.split("\n"):  # Split the gpt_response into individual lines and iterate over each line.
-    if "go_to_location" in line:  # Check if the line contains the "go_to_location" command.
-        coords = [int(coord) for coord in line.split("(")[1].split(")")[0].split(",")] # Extract the coordinates from the line.For a line like "go_to_location(5,3,4)", this will extract the list [5, 3, 4].
-        real_go_to_location(*coords)  # Call the go_to_location function with the extracted coordinates.
-    elif "grab()" in line:  # Check if the line contains the "grab()" command.
-       real_grab()  # Call the grab function to execute the grab action.
-    elif "release()" in line:  # Check if the line contains the "release()" command.
-        real_release()  # Call the release function to execute the release action.
+def main():
+    # Connect to control unit and Raspberry Pi
+    control_unit_socket = connect_to_control_unit()
+    raspberry_pi_socket = connect_to_raspberry_pi()
+    
+    # Parsing and executing the gpt_response
+    for line in gpt_response.split("\n"):
+        if "go_to_location" in line:
+            coords = [int(coord) for coord in line.split("(")[1].split(")")[0].split(",")]
+            real_go_to_location(*coords, control_unit_socket)
+        elif "grab()" in line:
+            real_grab(raspberry_pi_socket)
+        elif "release()" in line:
+            real_release(raspberry_pi_socket)
 
-sock.close()  # Close the connection after executing all commands
+    # Close the connections
+    control_unit_socket.close()
+    raspberry_pi_socket.close()
+
+if __name__ == "__main__":
+    main()
