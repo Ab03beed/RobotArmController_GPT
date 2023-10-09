@@ -1,12 +1,13 @@
 import os 
 import openai 
 import speech_recognition as sr 
+
 # Initialize recognizer 
 recognizer = sr.Recognizer() 
 
 # Capture audio from the microphone 
 with sr.Microphone() as source: 
-    print("WHich box should I move?") 
+    print("Which box should I move?") 
     audio = recognizer.listen(source) 
 
 # Convert audio to text using the default recognizer 
@@ -30,7 +31,7 @@ box_1_variants = [
     "bokks on", "bokks ett", "bex won", "bex on", "bex ett" 
 ] 
 box_2_variants = [ 
-    "box two", "box 2", "box to", "box too", "barks two", "fox two", "books two", 
+    "books to","box two", "box 2", "box to", "box too", "barks two", "fox two", "books two", 
     "boks two", "bok two", "boxen two", "box tu", "bax two", "bux two", 
     "boks två", "bok två", "box två", "bex two", "bogs two", "bog two", 
     "buck two", "buck två", "bokk two", "bokks two", "boxen två", "box tu två", 
@@ -39,7 +40,7 @@ box_2_variants = [
 ] 
 box_3_variants = [ 
     "box three", "box 3", "barks three", "fox three", "books three", 
-    "boks three", "bok three", "boxen three", "box tree", "bax three", "bux three", 
+    "boks three","books 3", "bok three", "boxen three", "box tree", "bax three", "bux three", 
     "boks tre", "bok tre", "box tre", "bex three", "bogs three", "bog three", 
     "buck three", "buck tre", "bokk three", "bokks three", "boxen tre", "box tree tre", 
     "boks tree", "boxen tree", "bok tree", "boxen trey", "boxen tre", "bokks tree",  
@@ -63,69 +64,33 @@ openai.api_key = os.getenv("GPT_API_KEY")
 gpt_call = openai.ChatCompletion.create( 
     model="gpt-3.5-turbo", 
     messages=[ 
-        {"role": "system", "content": "You are a helpful assistant."}, 
+
+        {"role": "system", "content": "You are an experienced robot operations coder that will help the user to code a collaborative robot."}, 
         {"role": "user", "content": f""" 
-        Imagine we are working with a collaborative robot with the task of moving boxes from one table to another.  
-        After each task the robot arm moves back to its home position.Such that each task starts out from the home position. 
-        There are three different boxes called BOX_1, BOX_2 and BOX_3. The position of boxes at the pick up table is given in XYZ coordinates.
-        The box’s pick-up locations: BOX_1(5,3,4), BOX_2(5,4,4), BOX_3(5,5,4).  
-        The the cordinate for releasing boxes on the second table is (-5,3,4)
-        The home position for the robot arm is (0,0,0) 
+        Imagine we are working with a collaborative robot with the task of moving boxes from a "pick-up table" to a "release table".  
+        The three boxes is called BOX_1, BOX_2 and BOX_3. The position of boxes at the pick up table is given in XYZ coordinates: BOX_1(5,3,4), BOX_2(5,4,4), BOX_3(5,5,4).  
+        The the cordinate to release boxes at the release table is: (-5,3,4).
+        The home position for the robot arm is (0,0,0).
+         
+        Each time the robot arm has succesfully accomplished what the user asked for, it must move back to its home position, this is very important.
          
         The functions you can use are: 
         go_to_location(X,Y,Z): Moves robot arm end effector to a location specified by XYZ coordinates. Returns nothing. 
         grab(): Robot end effector grabs box. Returns nothing. 
         release(): Robot arm end effector releases box. 
      
-        Please have the robot move {which_box} from its pick-up position to its release-position. 
+        Please have the robot move {which_box} from its pick-up position to its release-position. Return the order in how functions are used, 
+        together with a very brief explanation of each step and keep it on the same row as the function that is used. 
+        Like this:
+        1. function() #explanation 
+        2. function() #explanation
+        .
+        .
+        
+        No need for a separate explanation.
         """} 
     ] 
 ) 
 gpt_response = gpt_call['choices'][0]['message']['content'] 
 print(gpt_response) 
 
-# Function to send commands to the robotic arm 
-def send_to_robotic_arm(command): 
-    # This function will send the command to the robotic arm through the socket. 
-    # You'll need to implement the socket communication here. 
-    pass 
-
-# Mapping high-level functions to actual robotic arm commands 
-def go_to_location(box_name): 
-    if box_name.endswith("pickup"): 
-        coords = box_name.replace("_pickup", "") 
-        x, y, z = box_coords[coords]  # Assuming you have a dictionary with box coordinates 
-    elif box_name.endswith("release"): 
-        coords = box_name.replace("_release", "") 
-        x, y, z = box_coords[coords] 
-    else: 
-        print("Invalid box name for location.") 
-        return 
-    command = f"MOVE P[{x},{y},{z}]"  # This is a hypothetical command; adjust based on actual syntax 
-    send_to_robotic_arm(command) 
-
-def grab_box(box_name): 
-    command = "GRAB"  # Hypothetical command to close the end effector 
-    send_to_robotic_arm(command) 
-
-def release_box(box_name): 
-    command = "RELEASE"  # Hypothetical command to open the end effector 
-    send_to_robotic_arm(command) 
-
-def go_to_home_position(): 
-    command = "MOVE P[0,0,0]"  # Moving to the home position 
-    send_to_robotic_arm(command) 
-
-# Parsing GPT-3's response to call the appropriate functions 
-# This is a basic example; you might need to adjust based on the exact response format 
-if "go_to_location" in gpt_response: 
-    box_name = gpt_response.split("go_to_location(")[1].split(")")[0] 
-    go_to_location(box_name) 
-elif "grab_box" in gpt_response: 
-    box_name = gpt_response.split("grab_box(")[1].split(")")[0] 
-    grab_box(box_name) 
-elif "release_box" in gpt_response: 
-    box_name = gpt_response.split("release_box(")[1].split(")")[0] 
-    release_box(box_name) 
-elif "go_to_home_position" in gpt_response: 
-    go_to_home_position() 

@@ -1,25 +1,33 @@
-import os 
-import openai 
-import speech_recognition as sr 
+import os
+import openai
+import speech_recognition as sr
+import socket
+import time
 
-# Initialize recognizer 
-recognizer = sr.Recognizer() 
+# Constants for Raspberry Pi and Control Unit
+RASPBERRY_PI_IP = "YOUR_RASPBERRY_PI_IP"
+RASPBERRY_PI_PORT = int("YOUR_RASPBERRY_PI_PORT")
+CONTROL_UNIT_IP = "YOUR_CONTROL_UNIT_IP"
+CONTROL_UNIT_PORT = int("YOUR_CONTROL_UNIT_PORT")
 
-# Capture audio from the microphone 
-with sr.Microphone() as source: 
-    print("WHich box should I move?") 
-    audio = recognizer.listen(source) 
+# Initialize recognizer
+recognizer = sr.Recognizer()
 
-# Convert audio to text using the default recognizer 
-try: 
-    voice_command = recognizer.recognize_google(audio) 
-    print(f"You said: {voice_command}") 
-except sr.UnknownValueError: 
-    print("Could not understand the audio.") 
-    exit() 
-except sr.RequestError: 
-    print("Could not request results from the speech recognition service.") 
-    exit() 
+# Capture audio from the microphone
+with sr.Microphone() as source:
+    print("Which box should I move?")
+    audio = recognizer.listen(source)
+
+# Convert audio to text using the default recognizer
+try:
+    voice_command = recognizer.recognize_google(audio)
+    print(f"You said: {voice_command}")
+except sr.UnknownValueError:
+    print("Could not understand the audio.")
+    exit()
+except sr.RequestError:
+    print("Could not request results from the speech recognition service.")
+    exit()
 
 # List of possible transcriptions for each box 
 box_1_variants = [ 
@@ -92,5 +100,67 @@ gpt_call = openai.ChatCompletion.create(
     ] 
 ) 
 gpt_response = gpt_call['choices'][0]['message']['content'] 
-print(gpt_response) 
+print(gpt_response) #sdfasdd
 
+# Establishing connection to the control unit socket and arm
+def connect_to_control_unit():
+    """Establish connection to the control unit."""
+    control_unit_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    control_unit_socket.connect((CONTROL_UNIT_IP, CONTROL_UNIT_PORT))
+    return control_unit_socket
+
+def connect_to_raspberry_pi():
+    """Establish connection to the Raspberry Pi."""
+    raspberry_pi_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    raspberry_pi_socket.connect((RASPBERRY_PI_IP, RASPBERRY_PI_PORT))
+    return raspberry_pi_socket
+
+# Mapping high-level functions to real-world counterparts
+def real_go_to_location(x, y, z, control_unit_socket):
+    """Send move command to the control unit."""
+    command = f"MOVE TO {x},{y},{z}"
+    control_unit_socket.sendall(command.encode())
+    response = control_unit_socket.recv(1024).decode()
+    if "SUCCESS" not in response:
+        raise Exception(f"Failed to move to location {x},{y},{z}. Error: {response}")
+    print(response)
+
+def real_grab(raspberry_pi_socket):
+    """Send grab command to the Raspberry Pi."""
+    command = "GRAB"
+    raspberry_pi_socket.sendall(command.encode())
+    response = raspberry_pi_socket.recv(1024).decode()
+    if "SUCCESS" not in response:
+        raise Exception(f"Failed to grab. Error: {response}")
+    print(response)
+
+def real_release(raspberry_pi_socket):
+    """Send release command to the Raspberry Pi."""
+    command = "RELEASE"
+    raspberry_pi_socket.sendall(command.encode())
+    response = raspberry_pi_socket.recv(1024).decode()
+    if "SUCCESS" not in response:
+        raise Exception(f"Failed to release. Error: {response}")
+    print(response)
+
+def main():
+    # Connect to control unit and Raspberry Pi
+    control_unit_socket = connect_to_control_unit()
+    raspberry_pi_socket = connect_to_raspberry_pi()
+    
+    # Parsing and executing the gpt_response
+    for line in gpt_response.split("\n"):
+        if "go_to_location" in line:
+            coords = [int(coord) for coord in line.split("(")[1].split(")")[0].split(",")]
+            real_go_to_location(*coords, control_unit_socket)
+        elif "grab()" in line:
+            real_grab(raspberry_pi_socket)
+        elif "release()" in line:
+            real_release(raspberry_pi_socket)
+
+    # Close the connections
+    control_unit_socket.close()
+    raspberry_pi_socket.close()
+
+if __name__ == "__main__":
+    main()
