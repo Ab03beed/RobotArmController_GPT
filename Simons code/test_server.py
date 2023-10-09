@@ -19,6 +19,7 @@ def server():
     print(f'Received: {data}')
     
     # Close the connection
+    c.sendall(b"Received your message")
     c.close()
 
 server()

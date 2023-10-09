@@ -22,4 +22,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     except socket.timeout:
         print('No data received after', TIMEOUT, 'seconds')
         
-s.close()
+
