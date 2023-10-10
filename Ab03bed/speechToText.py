@@ -23,7 +23,6 @@ class SpeechToText:
             return text
         except sr.UnknownValueError:
             #Handle unrecognized audio
-            #print("Could not understand the audio.")
             return "none"
         except sr.RequestError:
             # Handle request errors
