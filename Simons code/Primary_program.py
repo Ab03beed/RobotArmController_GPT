@@ -6,9 +6,9 @@ import time
 
 # Constants for Raspberry Pi and Control Unit connection details
 RASPBERRY_PI_IP = "YOUR_RASPBERRY_PI_IP"
-RASPBERRY_PI_PORT = "YOUR_RASPBERRY_PI_PORT"
+RASPBERRY_PI_PORT = YOUR_RASPBERRY_PI_PORT
 CONTROL_UNIT_IP = "YOUR_CONTROL_UNIT_IP"
-CONTROL_UNIT_PORT = "YOUR_CONTROL_UNIT_PORT"
+CONTROL_UNIT_PORT = YOUR_CONTROL_UNIT_PORT
 
 # Initialize the speech recognizer
 recognizer = sr.Recognizer()
@@ -138,7 +138,7 @@ def send_to_raspberry_pi(command):
     return response
 
 def real_go_to_location(x, y, z):
-    command = f"MOVE TO {x},{y},{z}"
+    command = f"{x},{y},{z}"
     response = send_to_robotic_arm(command)
     if "COMPLETED" not in response:
         print(f"Error moving to location {x},{y},{z}: {response}")
@@ -151,6 +151,7 @@ def real_grab():
         print(f"Error grabbing: {response}")
         exit()
     print(response)
+
 
 def real_release():
     response = send_to_raspberry_pi("RELEASE")
