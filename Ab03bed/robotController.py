@@ -22,6 +22,7 @@ class RobotController:
             print(f"Couldn't connect to {repr(config)}!")
         
 
+    #Public function that sends data to a target(socket)
     def sendTo(self, target, command):
         target.sendall(command.encode('utf-8'))
         response = target.recv(1024).decode()
