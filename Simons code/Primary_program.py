@@ -138,7 +138,7 @@ def real_go_to_location(x, y, z):
 
 def real_grab():
     response = send_to_raspberry_pi("GRAB")
-    if "GRAB IS COMPLETE" not in response:
+    if "GRAB COMPLETE" not in response:
         print(f"Error grabbing: {response}")
         exit()
     print(response)
@@ -146,7 +146,7 @@ def real_grab():
 
 def real_release():
     response = send_to_raspberry_pi("RELEASE")
-    if "RELEASE IS COMPELETE" not in response:
+    if "RELEASE COMPLETE" not in response:
         print(f"Error releasing: {response}")
         exit()
     print(response)
