@@ -112,7 +112,7 @@ print(gpt_response)
 
 # Establishing connection to the control unit socket and arm
 def establish_connection(ip, port):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #maybe change to UDP instead of TCP
     s.connect((ip, int(port)))
     return s
 
