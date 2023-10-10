@@ -5,10 +5,10 @@ import socket
 import time
 
 # Constants for Raspberry Pi and Control Unit connection details
-RASPBERRY_PI_IP = "YOUR_RASPBERRY_PI_IP"
-RASPBERRY_PI_PORT = YOUR_RASPBERRY_PI_PORT
-CONTROL_UNIT_IP = "YOUR_CONTROL_UNIT_IP"
-CONTROL_UNIT_PORT = YOUR_CONTROL_UNIT_PORT
+RASPBERRY_PI_IP = '127.0.0.1'
+RASPBERRY_PI_PORT = 12345
+CONTROL_UNIT_IP = '127.0.0.1'
+CONTROL_UNIT_PORT = 10002
 
 # Initialize the speech recognizer
 recognizer = sr.Recognizer()
@@ -75,12 +75,10 @@ print(which_box)
 
 # Set OpenAI API key
 openai.api_key = os.getenv("GPT_API_KEY")
-
 # Make a call to the OpenAI GPT model to get instructions for robot operations
 gpt_call = openai.ChatCompletion.create( 
     model="gpt-3.5-turbo", 
     messages=[ 
-
         {"role": "system", "content": "You are an experienced robot operations coder that will help the user to code a collaborative robot."}, 
         {"role": "user", "content": f""" 
         Imagine we are working with a collaborative robot with the task of moving boxes from a "pick-up table" to a "release table".  
@@ -120,34 +118,27 @@ control_unit_socket = establish_connection(CONTROL_UNIT_IP, CONTROL_UNIT_PORT)#T
 raspberry_pi_socket = establish_connection(RASPBERRY_PI_IP, RASPBERRY_PI_PORT)#--''--
 
 
-# Define a function to save commands to a text file
-def save_command_to_file(command):
-    with open("executed_commands.txt", "a") as file:
-        file.write(command + "\n")
-
 def send_to_robotic_arm(command):
     control_unit_socket.sendall(command.encode())
     response = control_unit_socket.recv(1024).decode()
-    save_command_to_file(command)  # Save the command to a text file
     return response
 
 def send_to_raspberry_pi(command):
     raspberry_pi_socket.sendall(command.encode())
     response = raspberry_pi_socket.recv(1024).decode()
-    save_command_to_file(command)  # Save the command to a text file
     return response
 
 def real_go_to_location(x, y, z):
     command = f"{x},{y},{z}"
     response = send_to_robotic_arm(command)
-    if "COMPLETED" not in response:
+    if "MOVE COMPLETED" not in response:
         print(f"Error moving to location {x},{y},{z}: {response}")
         exit()
     print(response)
 
 def real_grab():
     response = send_to_raspberry_pi("GRAB")
-    if "COMPLETED" not in response:
+    if "GRAB IS COMPLETE" not in response:
         print(f"Error grabbing: {response}")
         exit()
     print(response)
@@ -155,7 +146,7 @@ def real_grab():
 
 def real_release():
     response = send_to_raspberry_pi("RELEASE")
-    if "COMPLETED" not in response:
+    if "RELEASE IS COMPELETE" not in response:
         print(f"Error releasing: {response}")
         exit()
     print(response)

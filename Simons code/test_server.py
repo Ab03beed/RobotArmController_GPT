@@ -2,14 +2,11 @@ import socket
 HOST = '127.0.0.1'
 PORT = 12345
 def server():
-    # Create a socket object
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # Bind the socket to a public host and a port
-    s.bind((HOST, PORT))
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Create a socket object
+    s.bind((HOST, PORT)) # Bind the socket to a public host and a port
     s.listen(5)  # Listen for client connections
-    
     # Set a timeout of 10 seconds for accepting client connections
-    s.settimeout(10)
+    #s.settimeout(10)
     
     print('Server listening...')
     
@@ -27,8 +24,11 @@ def server():
     data = c.recv(1024).decode('utf-8')
     print(f'Received: {data}')
     
-    # Close the connection
-    c.sendall(b"Received your message")
+    if "GRAB" in data:
+        c.sendall(b"GRAB IS COMPLETE")
+    elif "RELEASE" in data:
+        c.sendall(b"RELEASE COMPLETE")
+    else:
+        c.sendall(b"not correct message")
     c.close()
-
 server()
