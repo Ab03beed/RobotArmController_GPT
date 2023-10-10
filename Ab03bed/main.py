@@ -2,7 +2,6 @@ from robotController import RobotController
 from speechToText import SpeechToText
 from GPT_API import GPT_API
 import time
-import os
 
 
 def main():
