@@ -1,6 +1,7 @@
 import socket
 HOST = '127.0.0.1'
 PORT = 12345
+
 def server():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Create a socket object
     s.bind((HOST, PORT)) # Bind the socket to a public host and a port
@@ -19,16 +20,17 @@ def server():
         return
     
     print(f'Got connection from {addr}')
-    
-    # Receive data from the client
-    data = c.recv(1024).decode('utf-8')
-    print(f'Received: {data}')
-    
-    if "GRAB" in data:
-        c.sendall(b"GRAB IS COMPLETE")
-    elif "RELEASE" in data:
-        c.sendall(b"RELEASE COMPLETE")
-    else:
-        c.sendall(b"not correct message")
-    c.close()
+
+    while True:
+        # Receive data from the client
+        data = c.recv(1024).decode('utf-8')
+        print(f'Received: {data}')
+        
+        if data=="GRAB":
+            c.sendall(b"GRAB IS COMPLETE")
+        elif data=="RELEASE":
+            c.sendall(b"RELEASE COMPLETE")
+        else:
+            c.sendall(b"not correct message")
+
 server()
