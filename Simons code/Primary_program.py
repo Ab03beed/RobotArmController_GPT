@@ -17,6 +17,7 @@ recognizer = sr.Recognizer()
 with sr.Microphone() as source:
     print("Which box should I move?")
     audio = recognizer.listen(source)
+    
 
 # Convert the captured audio to text using Google's speech recognition
 try:
@@ -39,7 +40,7 @@ box_1_variants = [
     "boks ett", "bok ett", "box ett", "bex one", "bogs one", "bog one", 
     "buck one", "buck ett", "bokk one", "bokks one", "boxen ett", "box on ett", 
     "boks on", "boxen on", "bok on", "boxen won", "boxen ett", "bokks won",  
-    "bokks on", "bokks ett", "bex won", "bex on", "bex ett" 
+    "bokks on", "bokks ett", "bex won", "bex on", "bex ett", "Wolksvagen" 
 ] 
 box_2_variants = [ 
     "books to","box two", "box 2", "box to", "box too", "barks two", "fox two", "books two", 
@@ -77,13 +78,13 @@ print(which_box)
 openai.api_key = os.getenv("GPT_API_KEY")
 # Make a call to the OpenAI GPT model to get instructions for robot operations
 gpt_call = openai.ChatCompletion.create( 
-    model="gpt-3.5-turbo", 
+    model="gpt-4", 
     messages=[ 
         {"role": "system", "content": "You are an experienced robot operations coder that will help the user to code a collaborative robot."}, 
         {"role": "user", "content": f""" 
         Imagine we are working with a collaborative robot with the task of moving boxes from a "pick-up table" to a "release table".  
-        The three boxes is called BOX_1, BOX_2 and BOX_3. The position of boxes at the pick up table is given in XYZ coordinates: BOX_1(402,-203,100), BOX_2(300,-203,100), BOX_3(203,-203,100).  
-        The the cordinate to release boxes at the release table is: (400,100,100).
+        The three boxes is called BOX_1, BOX_2 and BOX_3. The position of boxes at the pick up table is given in XYZ coordinates: BOX_1(410,-200,100), BOX_2(300,-200,100), BOX_3(190,-200,100).  
+        The the cordinate to release boxes at the release table is: (400,200,100).
         The home position for the robot arm is (270,0,504).
          
         Each time the robot arm has succesfully accomplished what the user asked for, it must move back to its home position, this is very important.
