@@ -1,5 +1,5 @@
 import socket
-#HOST = '127.0.0.1'
+HOST = '127.0.0.1'
 PORT = 12345
 
 x = 62    
@@ -14,7 +14,7 @@ def client():
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print("Attempting to connect to server...")
             s.settimeout(TIMEOUT)  # Set the timeout
-            s.connect((socket.gethostname(), PORT))
+            s.connect((HOST, PORT))
             print("Connected to server.")
 
             message = f"{x},{y},{z}".encode('utf-8')
