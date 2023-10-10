@@ -8,10 +8,19 @@ def server():
     s.bind(('127.0.0.1', 12345))
     s.listen(5)  # Listen for client connections
     
+    # Set a timeout of 10 seconds for accepting client connections
+    s.settimeout(10)
+    
     print('Server listening...')
     
-    # Establish connection with the client
-    c, addr = s.accept()
+    try:
+        # Establish connection with the client
+        c, addr = s.accept()
+    except socket.timeout:
+        print("No client connected in 10 seconds. Exiting...")
+        s.close()
+        return
+    
     print(f'Got connection from {addr}')
     
     # Receive data from the client
