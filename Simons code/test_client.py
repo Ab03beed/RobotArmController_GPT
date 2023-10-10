@@ -1,5 +1,5 @@
 import socket
-HOST = '127.0.0.1'
+#HOST = '127.0.0.1'
 PORT = 12345
 
 x = 62    
@@ -14,13 +14,12 @@ def client():
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print("Attempting to connect to server...")
             s.settimeout(TIMEOUT)  # Set the timeout
-            s.connect((HOST, PORT))
+            s.connect((socket.gethostname(), PORT))
             print("Connected to server.")
 
             message = f"{x},{y},{z}".encode('utf-8')
             print(f"Sending message: {message.decode('utf-8')}")
             s.sendall(message)
-
             try:
                 data = s.recv(1024)
                 print('Received from server:', repr(data))
@@ -35,6 +34,4 @@ def client():
         print(f"Connection attempt timed out after {TIMEOUT} seconds.")
     except Exception as e:
         print(f"Error: {e}")
-
-
 client()

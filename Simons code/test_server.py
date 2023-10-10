@@ -1,11 +1,11 @@
 import socket
-HOST = '127.0.0.1'
+#HOST = '127.0.0.1'
 PORT = 12345
 def server():
     # Create a socket object
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Bind the socket to a public host and a port
-    s.bind((HOST, PORT))
+    s.bind((socket.gethostname(), PORT))
     s.listen(5)  # Listen for client connections
     
     # Set a timeout of 10 seconds for accepting client connections
