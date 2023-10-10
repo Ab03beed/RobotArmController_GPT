@@ -1,25 +1,6 @@
-"""import socket
-tcp1 = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
-tcp_ip = "127.0.0.1"
-port = 12345
-buffer_size = 1024
-msg = ("Client test.")
-
-
-tcp1.connect((tcp_ip , port))
-print ("Sending message: " + msg)
-tcp1.send(msg.encode('utf8'))
-
-data = tcp1.recv(buffer_size).decode('utf-8')
-
-print ("Data reveived: " +  data)
-
-"""
-
 import socket
-
 HOST ='127.0.0.1'
-PORT =54321
+PORT =12345
 
 x = 62    
 y = -26
@@ -28,7 +9,7 @@ z = 580
 # Set a timeout value (in seconds)
 TIMEOUT = 5
 
-def main():
+def client():
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print("Attempting to connect to server...")
@@ -55,5 +36,5 @@ def main():
     except Exception as e:
         print(f"Error: {e}")
 
-if __name__ == "__main__":
-    main()
+
+client()
