@@ -6,9 +6,9 @@ import time
 
 # Constants for Raspberry Pi and Control Unit connection details
 RASPBERRY_PI_IP = "YOUR_RASPBERRY_PI_IP"
-RASPBERRY_PI_PORT = YOUR_RASPBERRY_PI_PORT
+RASPBERRY_PI_PORT = "YOUR_RASPBERRY_PI_PORT"
 CONTROL_UNIT_IP = "YOUR_CONTROL_UNIT_IP"
-CONTROL_UNIT_PORT = YOUR_CONTROL_UNIT_PORT
+CONTROL_UNIT_PORT = "YOUR_CONTROL_UNIT_PORT"
 
 # Initialize the speech recognizer
 recognizer = sr.Recognizer()
