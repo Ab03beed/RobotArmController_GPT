@@ -83,21 +83,19 @@ gpt_call = openai.ChatCompletion.create(
         {"role": "system", "content": "You are an experienced robot operations coder that will help the user to code a collaborative robot."}, 
         {"role": "user", "content": f""" 
         Imagine we are working with a collaborative robot with the task of moving boxes from a "pick-up table" to a "release table".  
-        The three boxes is called BOX_1, BOX_2 and BOX_3. The position of boxes at the pick up table is given in XYZ coordinates: BOX_1(410,-200,100), BOX_2(300,-200,100), BOX_3(190,-200,100).  
-        The the cordinate to release boxes at the release table is: (400,200,100).
-        The home position for the robot arm is (270,0,504).
+        The three boxes is called BOX_1, BOX_2 and BOX_3. The coordinate (XYZ) to pick up boxes: BOX_1(410,-200,300), BOX_2(300,-200,300), BOX_3(190,-200,300).  
+        The the cordinate (XYZ) to release boxes: BOX_1(410,200,300), BOX_2(300,200,300), BOX_3(190,200,300).
+        The home position (XYZ) for the robot arm is: (270,0,504).
         
-        When the arm goes to pick-up table or release table its coordinate must be adjusted to take account for the end effectors size.
-        Adjustment is: (X,Y,+200) in relation to box coordinate. After picking up a box is must first move straight up (X,Y,+300)
-        in relation to box coordinate, before going to release position.
-         
-        Each time the robot arm has succesfully accomplished what the user asked for, it is very important that it moves back to its home position.
-         
-        The functions you can use are: 
-        go_to_location(X,Y,Z): Moves robot arm end effector to a location specified by XYZ coordinates. Returns nothing. 
-        grab(): Robot end effector grabs box. Returns nothing. 
-        release(): Robot arm end effector releases box. 
-     
+        
+        *After grabbing a box it must avoid collision with other boxes by moving straight up +130 in Z axis, before going to release position.
+        *Before releasing a box it must avoid collision with other boxes by moving to +130 in Z axis in relation to release coordinate (XYZ), before going to release cordinate.
+        *The program should always end with the robot arm going to its home position.
+        *The functions you can use are: 
+            -go_to_location(X,Y,Z): Moves robot arm end effector to a location specified by XYZ coordinates. Returns nothing. 
+            -grab(): Robot end effector grabs box. Returns nothing. 
+            -release(): Robot arm end effector releases box. 
+        
         Please have the robot move {which_box} from its pick-up position to its release-position. Return the order in how functions are used, 
         together with a very brief explanation of each step and keep it on the same row as the function that is used. 
         Like this:
