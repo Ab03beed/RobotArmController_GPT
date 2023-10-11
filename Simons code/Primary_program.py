@@ -40,7 +40,7 @@ box_1_variants = [
     "boks ett", "bok ett", "box ett", "bex one", "bogs one", "bog one", 
     "buck one", "buck ett", "bokk one", "bokks one", "boxen ett", "box on ett", 
     "boks on", "boxen on", "bok on", "boxen won", "boxen ett", "bokks won",  
-    "bokks on", "bokks ett", "bex won", "bex on", "bex ett", "Wolksvagen" 
+    "bokks on", "bokks ett", "bex won", "bex on", "bex ett", "Volkswagen" 
 ] 
 box_2_variants = [ 
     "books to","box two", "box 2", "box to", "box too", "barks two", "fox two", "books two", 

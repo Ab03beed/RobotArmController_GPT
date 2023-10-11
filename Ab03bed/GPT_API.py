@@ -5,7 +5,7 @@ class GPT_API:
     #default constructor
     def __init__(self):
         # Set OpenAI API key through system varibales
-        openai.api_key = os.getenv("GPT_KEY")
+        openai.api_key = os.getenv("GPT_API_KEY")
 
         # Lists of possible transcriptions for each box to handle misinterpretations
         # or different pronunciations/accent variations
