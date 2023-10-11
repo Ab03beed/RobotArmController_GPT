@@ -36,16 +36,15 @@ class GPT_API:
 
 
     def _gptCall(self, which_box):
-        gpt_call = openai.ChatCompletion.create( 
+        gpt_call = gpt_call = openai.ChatCompletion.create( 
             model="gpt-3.5-turbo", 
             messages=[ 
-
                 {"role": "system", "content": "You are an experienced robot operations coder that will help the user to code a collaborative robot."}, 
                 {"role": "user", "content": f""" 
                 Imagine we are working with a collaborative robot with the task of moving boxes from a "pick-up table" to a "release table".  
-                The three boxes is called BOX_1, BOX_2 and BOX_3. The position of boxes at the pick up table is given in XYZ coordinates: BOX_1(5,3,4), BOX_2(5,4,4), BOX_3(5,5,4).  
-                The the cordinate to release boxes at the release table is: (-5,3,4).
-                The home position for the robot arm is (0,0,0).
+                The three boxes is called BOX_1, BOX_2 and BOX_3. The position of boxes at the pick up table is given in XYZ coordinates: BOX_1(402,-203,100), BOX_2(300,-203,100), BOX_3(203,-203,100).  
+                The the cordinate to release boxes at the release table is: (400,100,100).
+                The home position for the robot arm is (270,0,504).
                 
                 Each time the robot arm has succesfully accomplished what the user asked for, it must move back to its home position, this is very important.
                 
@@ -63,9 +62,10 @@ class GPT_API:
                 .
                 
                 No need for a separate explanation.
-                """} 
-            ] 
+                """}
+            ]
         ) 
+            
         return gpt_call
 
     def ask(self, task):

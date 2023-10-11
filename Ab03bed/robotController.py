@@ -26,7 +26,12 @@ class RobotController:
     def sendTo(self, target, command):
         target.sendall(command.encode('utf-8'))
         response = target.recv(1024).decode()
-        return response
+
+        if "COMPLETED" not in response:
+            print("Something went wrong while operating!") 
+        else:
+            return response
+
 
     
 
