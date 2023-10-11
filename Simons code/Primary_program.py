@@ -102,6 +102,7 @@ gpt_call = openai.ChatCompletion.create(
         .
         .
         
+
         No need for a separate explanation.
         """} 
     ] 
@@ -143,7 +144,6 @@ def real_grab():
         print(f"Error grabbing: {response}")
         exit()
     print(response)
-
 
 def real_release():
     response = send_to_raspberry_pi("RELEASE")
