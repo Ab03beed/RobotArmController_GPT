@@ -40,7 +40,7 @@ box_1_variants = [
     "boks ett", "bok ett", "box ett", "bex one", "bogs one", "bog one", 
     "buck one", "buck ett", "bokk one", "bokks one", "boxen ett", "box on ett", 
     "boks on", "boxen on", "bok on", "boxen won", "boxen ett", "bokks won",  
-    "bokks on", "bokks ett", "bex won", "bex on", "bex ett", "Volkswagen" 
+    "bokks on", "bokks ett", "bex won", "bex on", "bex ett", "volkswagen" 
 ] 
 box_2_variants = [ 
     "books to","box two", "box 2", "box to", "box too", "barks two", "fox two", "books two", 
@@ -86,8 +86,12 @@ gpt_call = openai.ChatCompletion.create(
         The three boxes is called BOX_1, BOX_2 and BOX_3. The position of boxes at the pick up table is given in XYZ coordinates: BOX_1(410,-200,100), BOX_2(300,-200,100), BOX_3(190,-200,100).  
         The the cordinate to release boxes at the release table is: (400,200,100).
         The home position for the robot arm is (270,0,504).
+        
+        When the arm goes to pick-up table or release table its coordinate must be adjusted to take account for the end effectors size.
+        Adjustment is: (X,Y,+200) in relation to box coordinate. After picking up a box is must first move straight up (X,Y,+300)
+        in relation to box coordinate, before going to release position.
          
-        Each time the robot arm has succesfully accomplished what the user asked for, it must move back to its home position, this is very important.
+        Each time the robot arm has succesfully accomplished what the user asked for, it is very important that it moves back to its home position.
          
         The functions you can use are: 
         go_to_location(X,Y,Z): Moves robot arm end effector to a location specified by XYZ coordinates. Returns nothing. 
