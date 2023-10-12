@@ -88,8 +88,9 @@ gpt_call = openai.ChatCompletion.create(
         The home position (XYZ) for the robot arm is: (270,0,504).
         
         
-        *After grabbing a box it must avoid collision with other boxes by moving straight up +130 in Z axis, before going to release position.
-        *Before releasing a box it must avoid collision with other boxes by moving to +130 in Z axis in relation to release coordinate (XYZ), before going to release cordinate.
+        
+        *Before and after grabbing or releasing a box, it must avoid collision with other boxes by moving to +130 in Z axis in relation to the target cordinate (XYZ), before moving to target cordinate.
+        
         *The program should always end with the robot arm going to its home position.
         *The functions you can use are: 
             -go_to_location(X,Y,Z): Moves robot arm end effector to a location specified by XYZ coordinates. Returns nothing. 

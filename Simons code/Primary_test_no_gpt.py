@@ -11,13 +11,17 @@ CONTROL_UNIT_IP = '127.0.0.1'
 CONTROL_UNIT_PORT = 10002
 
 
-gpt_response = """1. go_to_location(190,-200,300) # Moves robot arm end effector to the location of BOX_3
-2. grab() # Robot arm end effector grabs BOX_3
-3. go_to_location(190,-200,430) # The robot moves straight up (+130 in Z axis) to avoid collision with other boxes
-4. go_to_location(190,200,430) # The robot moves above the release location for BOX_3, while still maintaining a higher position to avoid collision
-5. go_to_location(190,200,300) # The robot moves down to the release location for BOX_3
-6. release() # The robot releases BOX_3 at the designated position
-7. go_to_location(270,0,504) # The robot goes back to its home position"""
+gpt_response = """
+1. go_to_location(410, -200, 430) #Go above BOX_1 to avoid collision
+2. go_to_location(410, -200, 300) #Going straight down to position of BOX_1
+3. grab() #Grabbing the BOX_1
+4. go_to_location(410, -200, 430) #Lift up BOX_1 above the currentPosition
+5. go_to_location(410, 200, 430)  #Move to above the release location, avoiding collision with other boxes
+6. go_to_location(410, 200, 300)  #Move straight down to the release location
+7. release() #Release the BOX_1 on release table
+8. go_to_location(410, 200, 430)  #Move up to avoid colliding with the box
+9. go_to_location(270, 0, 504) #Move back to home position after task is done
+"""
 print(gpt_response)
 
 # Establishing connection to the control unit socket and arm
