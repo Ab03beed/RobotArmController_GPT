@@ -1,0 +1,4 @@
+2023:10:12 09:16:24	:Syntax check Error
+	:Program	:TEST(Command:11)	:SIMS PROJECT	:Robot	:11 Mva P1                         'Apply p1 as movment	:Syntax error
+2023:10:12 09:18:13	:Syntax check Error
+	:Program	:TEST(Command:12)	:SIMS PROJECT	:Robot	:12 Mva P1                         'Apply p1 as movment	:Syntax error
