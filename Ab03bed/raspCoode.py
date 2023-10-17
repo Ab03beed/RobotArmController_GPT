@@ -31,6 +31,6 @@ def server():
         elif data=="RELEASE":
             c.sendall(b"RELEASE COMPLETED")
         else:
-            c.sendall(b"not correct message")
+            c.sendall(f"False command: {data}")
 
 server()
