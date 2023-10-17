@@ -4,7 +4,7 @@ import time
 
 aai.settings.api_key = f"42ebba2a84704b85b0407644635586c2"
 
-FILE_URL = "./voiceCommand.wav"
+FILE_URL = "C:/Users/abdah/OneDrive/Documents/GitHub/SIMS/Ab03bed/speechComparison/voiceCommand.wav"
 
 transcriber = aai.Transcriber()
 
