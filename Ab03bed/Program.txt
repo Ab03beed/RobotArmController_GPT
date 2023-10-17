@@ -1,14 +1,12 @@
-1 C_Com(2)="ETH:127.0.0.1,10002"  'Setting the configrations of the communication line 2 (com2)
-2 Open "COM2:" As #1              'Open the Com2
-3 Dly 1                           'Delay in seconds
-4 Ovrd 10                          '
-5 Servo On                        'Setting Servo on
-6 *loopStart
-7 Input #1, P1.X,P1.Y,P1.Z        'Getting needed data through com2
-8 Print #1, P1                    'Sending p1 through com2, reciveing it in py
-9 Mov P1                          'Apply p1 as movment
-10 Dly 1
-11 GoSub *loopStart
-12 End
-P1=(+300.00,+0.00,+645.00)(,)
-
+C_Com(2)="ETH:127.0.0.1,10002"  'Setting the configrations of the communication line 2 (com2)
+Open "COM2:" As #1              'Open the Com2
+Dly 1                           'Delay in seconds
+Ovrd 5                          '
+Servo On                        'Setting Servo on
+*loopStart
+Input #1, P1.X,P1.Y,P1.Z        'Getting needed data through com2
+Mov P1                          'Apply p1 as movment
+Print #1, "MOVE COMPLETED"      'Send signal to py
+Dly 1
+GoSub *loopStart
+End
