@@ -15,12 +15,14 @@ def main():
   
     while True:
         task = sp.talk()
-        if task != "none":
+        if task == "exit":
+            break
+        elif task != "none":
             gptResponse = gpt.ask(task)
 
             print(gptResponse)
 
-            print("\nPress ENTER to continue or ESC to exit: ")
+            print("\nPress ENTER to preform the action or ESC to exit: ")
             print("Press anything eles for new task\n")
             key = keyboard.read_hotkey() #Wait for user to press a key
 
