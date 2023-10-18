@@ -1,6 +1,7 @@
 import pyaudio
 import speech_recognition as sr
 import keyboard
+import time
 
 class SpeechToText:
 
@@ -11,27 +12,35 @@ class SpeechToText:
         self.rate = 44100
         self.chunk = 1024
         self.channels = 1
-       
+
 
     def talk(self):
         stream = self.audio.open(format=self.format, rate=self.rate, channels=self.channels, input=True, frames_per_buffer=self.chunk)
-
         frames = []
+        commands = ['t','esc']
 
         print("\nPress 'T' to talk or 'ESC' to exit...")
-        key = keyboard.read_hotkey() #Wait for user to press a key
+        #key = keyboard.read_event(suppress=True) #Wait for user to press a key
+        
+        command = ""
+        while command not in commands:
+            key = keyboard.read_event(suppress=True) #Wait for user to press a key
+            command = key.name
 
-        if(key == 't'):
-            print("Listning...  Press 'I' to interrupt")
-            while True:
-                data = stream.read(self.chunk)
-                frames.append(data)
-                if keyboard.is_pressed('I'):
-                    print("Interrupted!")
-                    break
-        elif(key == 'esc'):
-            print("Good bye!")
-            return "exit"
+            if(command == 't'):
+                print("Listning...  Press 'I' to interrupt")
+                while True:
+                    data =  stream.read(self.chunk)
+                    frames.append(data)
+                    if keyboard.is_pressed('I'):
+                        print("Interrupted!")
+                        break
+            elif(command == 'esc'):
+                print("Good bye!")
+                return "exit"
+            else:
+                print("Invaild command --> Press 'T' to talk or 'ESC' to exit...")
+                time.sleep(0.5)
 
         # Stop and close the stream
         stream.stop_stream()

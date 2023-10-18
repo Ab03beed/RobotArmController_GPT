@@ -13,20 +13,23 @@ def main():
     #Object of GPT_API class
     gpt = GPT_API()
   
-    while True:
+    end = False
+    while not end:
         task = sp.talk()
         if task == "exit":
             break
         elif task != "none":
+            print("Waiting for GPT response...")
             gptResponse = gpt.ask(task)
 
             print(gptResponse)
 
             print("\nPress ENTER to preform the action or ESC to exit: ")
             print("Press anything eles for new task\n")
-            key = keyboard.read_hotkey() #Wait for user to press a key
 
-            if(key == "enter"):
+            key = keyboard.read_event(suppress=True) #Wait for user to press a key
+
+            if(key.name == 'enter'):
                 for line in gptResponse.split("\n"):
                     if "go_to_location" in line:
                         coords = [int(coord) for coord in line.split("(")[1].split(")")[0].split(",")]
@@ -39,8 +42,12 @@ def main():
                     elif "release()" in line:
                         res = r1.sendTo(r1.raspSoc, "RELEASE")
                         print(res)
-            elif(key == "esc"):
-                break
+            elif(key.name == 'esc'):
+                end = True
+            else:
+                time.sleep(0.5)
+                pass
+
                 
            
                     
