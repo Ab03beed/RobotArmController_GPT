@@ -35,10 +35,10 @@
 		</Screen392>
 		<Screen490>
 			<AdditionalInfo/>
-			<Left>1967</Left>
-			<Top>799</Top>
-			<Right>2280</Right>
-			<Bottom>1106</Bottom>
+			<Left>1025</Left>
+			<Top>393</Top>
+			<Right>1338</Right>
+			<Bottom>706</Bottom>
 		</Screen490>
 		<Screen225>
 			<AdditionalInfo>1</AdditionalInfo>
@@ -70,24 +70,24 @@
 		</Screen225>
 		<Screen2721>
 			<AdditionalInfo>2</AdditionalInfo>
-			<Left>130</Left>
-			<Top>130</Top>
-			<Right>797</Right>
-			<Bottom>490</Bottom>
+			<Left>52</Left>
+			<Top>52</Top>
+			<Right>719</Right>
+			<Bottom>412</Bottom>
 		</Screen2721>
 		<Screen2722>
 			<AdditionalInfo>2</AdditionalInfo>
-			<Left>1</Left>
-			<Top>225</Top>
-			<Right>937</Right>
-			<Bottom>585</Bottom>
+			<Left>-1</Left>
+			<Top>13</Top>
+			<Right>935</Right>
+			<Bottom>373</Bottom>
 		</Screen2722>
 		<Screen2725>
 			<AdditionalInfo>2</AdditionalInfo>
-			<Left>322</Left>
-			<Top>116</Top>
-			<Right>989</Right>
-			<Bottom>476</Bottom>
+			<Left>-1</Left>
+			<Top>13</Top>
+			<Right>935</Right>
+			<Bottom>373</Bottom>
 		</Screen2725>
 		<Screen392>
 			<AdditionalInfo>ASD</AdditionalInfo>
@@ -98,17 +98,17 @@
 		</Screen392>
 		<Screen2724>
 			<AdditionalInfo>2</AdditionalInfo>
-			<Left>322</Left>
-			<Top>116</Top>
-			<Right>989</Right>
-			<Bottom>476</Bottom>
+			<Left>-1</Left>
+			<Top>13</Top>
+			<Right>935</Right>
+			<Bottom>373</Bottom>
 		</Screen2724>
 		<Screen2723>
 			<AdditionalInfo>2</AdditionalInfo>
-			<Left>1</Left>
-			<Top>225</Top>
-			<Right>937</Right>
-			<Bottom>585</Bottom>
+			<Left>-119</Left>
+			<Top>31</Top>
+			<Right>817</Right>
+			<Bottom>391</Bottom>
 		</Screen2723>
 		<Screen2078>
 			<AdditionalInfo>2</AdditionalInfo>
@@ -161,10 +161,10 @@
 		</Screen2796>
 		<Screen392>
 			<AdditionalInfo>TEST</AdditionalInfo>
-			<Left>763</Left>
-			<Top>56</Top>
-			<Right>1403</Right>
-			<Bottom>701</Bottom>
+			<Left>744</Left>
+			<Top>25</Top>
+			<Right>1204</Right>
+			<Bottom>670</Bottom>
 		</Screen392>
 		<Screen142>
 			<AdditionalInfo/>
@@ -185,7 +185,7 @@
 	<RCtype>3</RCtype>
 	<MECHA1>RV-2SDB</MECHA1>
 	<RLNG>2</RLNG>
-	<Localization/>
+	<Localization> </Localization>
 	<Travel_prm_set>0</Travel_prm_set>
 	<Travel_use>1</Travel_use>
 	<Travel_direct>0</Travel_direct>

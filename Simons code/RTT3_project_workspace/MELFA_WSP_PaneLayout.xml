@@ -13,17 +13,17 @@
 		<Pane-9 Type="0" DockingCX="300" DockingCY="300" Title="Operation Panel\n\n" ID="22009" DockingHolder="15" LastHolder="15" Tag="-1"/>
 		<Pane-10 Type="0" DockingCX="200" DockingCY="120" Title="MELFA-Works\n\n" ID="22006" DockingHolder="14" LastHolder="14"/>
 		<Pane-11 Type="2" Horiz="1" Panes="1" Pane-1="12"/>
-		<Pane-12 Type="2" DockingCY="1226" Panes="2" Pane-1="13" Pane-2="20"/>
-		<Pane-13 Type="2" DockingCY="964" Horiz="1" Panes="4" Pane-1="14" Pane-2="15" Pane-3="16" Pane-4="17"/>
-		<Pane-14 Type="1" DockingCX="235" DockingCY="120" Panes="1" Selected="1" Pane-1="1"/>
+		<Pane-12 Type="2" DockingCY="714" Panes="2" Pane-1="13" Pane-2="20"/>
+		<Pane-13 Type="2" DockingCY="557" Horiz="1" Panes="4" Pane-1="14" Pane-2="15" Pane-3="16" Pane-4="17"/>
+		<Pane-14 Type="1" DockingCX="43" DockingCY="120" Panes="1" Selected="1" Pane-1="1"/>
 		<Pane-15 Type="1" DockingCX="300" DockingCY="300" Panes="0"/>
-		<Pane-16 Type="4" DockingCX="2042"/>
-		<Pane-17 Type="2" DockingCX="275" DockingCY="120" Panes="2" Pane-1="18" Pane-2="19"/>
-		<Pane-18 Type="1" DockingCX="240" DockingCY="120" Panes="1" Selected="2" Pane-1="2"/>
-		<Pane-19 Type="1" DockingCX="200" DockingCY="120" Panes="0"/>
-		<Pane-20 Type="2" DockingCX="200" DockingCY="258" Horiz="1" Panes="1" Pane-1="21"/>
+		<Pane-16 Type="4" DockingCX="1091"/>
+		<Pane-17 Type="2" DockingCX="226" DockingCY="481" Panes="2" Pane-1="18" Pane-2="19"/>
+		<Pane-18 Type="1" DockingCX="240" DockingCY="278" Panes="1" Selected="2" Pane-1="2"/>
+		<Pane-19 Type="1" DockingCX="200" DockingCY="199" Panes="0"/>
+		<Pane-20 Type="2" DockingCX="200" DockingCY="153" Horiz="1" Panes="1" Pane-1="21"/>
 		<Pane-21 Type="1" DockingCX="200" DockingCY="120" Panes="2" Selected="3" Pane-1="4" Pane-2="3"/>
-		<Pane-22 Type="3" WindowRectTopPos="1003" WindowRectBottomPos="1330" WindowRectLeftPos="128" WindowRectRightPos="1082" ExpandedHeight="0" TopContaner="23"/>
+		<Pane-22 Type="3" WindowRectTopPos="862" WindowRectBottomPos="1189" WindowRectLeftPos="128" WindowRectRightPos="1082" ExpandedHeight="0" TopContaner="23"/>
 		<Pane-23 Type="2" DockingCX="200" DockingCY="120" Horiz="1" Panes="1" Pane-1="24"/>
 		<Pane-24 Type="1" DockingCX="200" DockingCY="120" Panes="0"/>
 	</WorkspacePaneLayout>

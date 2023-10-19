@@ -1,0 +1,10 @@
+2023:10:12 09:16:24	:Syntax check Error
+	:Program	:TEST(Command:11)	:SIMS PROJECT	:Robot	:11 Mva P1                         'Apply p1 as movment	:Syntax error
+2023:10:12 09:18:13	:Syntax check Error
+	:Program	:TEST(Command:12)	:SIMS PROJECT	:Robot	:12 Mva P1                         'Apply p1 as movment	:Syntax error
+3D Monitor_Measurement result	#1	Start position(x, y, z)(-0.796, 91.325, 143.462)	End position(x, y, z)(5.287, 79.695, 18.799)	Distance[mm](125.352)
+3D Monitor_Measurement result	#2	Start position(x, y, z)(-66.027, 80.095, 2.553)	End position(x, y, z)(-64.456, 65.126, 147.370)	Distance[mm](145.598)
+3D Monitor_Measurement result	#3	Start position(x, y, z)(-39.758, 190.274, 168.995)	End position(x, y, z)(40.247, 179.159, 158.720)	Distance[mm](81.425)
+3D Monitor_Measurement result	#4	Start position(x, y, z)(-39.729, 185.795, 160.069)	End position(x, y, z)(40.234, 178.648, 158.513)	Distance[mm](80.296)
+3D Monitor_Measurement result	#1	Start position(x, y, z)(330.005, -152.535, 143.237)	End position(x, y, z)(329.110, -153.132, 157.467)	Distance[mm](14.270)
+3D Monitor_Measurement result	#2	Start position(x, y, z)(49.257, -138.148, 204.476)	End position(x, y, z)(33.473, -85.278, 155.847)	Distance[mm](73.547)

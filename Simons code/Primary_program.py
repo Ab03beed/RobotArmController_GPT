@@ -58,7 +58,13 @@ box_3_variants = [
     "boks tree", "boxen tree", "bok tree", "boxen trey", "boxen tre", "bokks tree",  
     "bokks trey", "bokks tre", "bex tree", "bex trey", "bex tre" 
 ] 
-
+box_4_variants = [
+    "Box for", "Bucks for","Box four","Fox four", "Box before","Box floor","Pox for", "Blocks for",
+    "Barks for","Box for the","Books for","Box before the", "Boss for","Boat's for","Box for the win",
+    "Bucks for the","Boxing for","Box before four","Box for you","Backs for","Boxing four","Box of four",
+    "Box or four","Boxing for the","Box it for","Bucks for the win","Boxed for","Books for the","Box it before",
+    "Box or the four"
+]
 # Convert the voice command to lowercase for easier matching
 voice_command_lower = voice_command.lower()
 
@@ -68,7 +74,9 @@ if any(variant in voice_command_lower for variant in box_1_variants):
 elif any(variant in voice_command_lower for variant in box_2_variants): 
     which_box = "BOX_2" 
 elif any(variant in voice_command_lower for variant in box_3_variants): 
-    which_box = "BOX_3" 
+    which_box = "BOX_3"
+elif any(variant in voice_command_lower for variant in box_4_variants): 
+    which_box = "BOX_4"
 else: 
     print("Invalid box name in voice command.") 
     exit()
@@ -76,22 +84,27 @@ print(which_box)
 
 # Set OpenAI API key
 openai.api_key = os.getenv("GPT_API_KEY")
+print("waiting for GPT response")
 # Make a call to the OpenAI GPT model to get instructions for robot operations
 gpt_call = openai.ChatCompletion.create( 
     model="gpt-4", 
     messages=[ 
         {"role": "system", "content": "You are an experienced robot operations coder that will help the user to code a collaborative robot."}, 
-        {"role": "user", "content": f""" 
-        Imagine we are working with a collaborative robot with the task of moving boxes from a "pick-up table" to a "release table".  
-        The three boxes is called BOX_1, BOX_2 and BOX_3. The coordinate (XYZ) to pick up boxes: BOX_1(410,-200,300), BOX_2(300,-200,300), BOX_3(190,-200,300).  
-        The the cordinate (XYZ) to release boxes: BOX_1(410,200,300), BOX_2(300,200,300), BOX_3(190,200,300).
-        The home position (XYZ) for the robot arm is: (270,0,504).
+        {"role": "user", "content": f"""
+        Imagine we are working with a collaborative robot with the task of moving four boxes from a "grabbing table" to a "release table".  
+        The four boxes is called BOX_1, BOX_2 and BOX_3 and BOX_4. 
         
+        The coordinates (XYZ) to grab boxes: BOX_1(90,-220,245), BOX_2(90,-400,245), BOX_3(-90,-400,245), BOX_4(-90,-220,245).  .  
+        The coordinates (XYZ) to release boxes: BOX_1(90, 400, 245), BOX_2(90, 220, 245), BOX_3(-90, 220, 245), BOX_4(-90, 400, 245).
         
-        
-        *Before and after grabbing or releasing a box, it must avoid collision with other boxes by moving to +130 in Z axis in relation to the target cordinate (XYZ), before moving to target cordinate.
-        
-        *The program should always end with the robot arm going to its home position.
+       
+        When going to and from grab and release positions, the robot arm should avoid collision with other boxes by first visiting these coordinates:
+        collision avoidance coordinates when grabbing:BOX_1(90,-220,435), BOX_2(90,-400,435), BOX_3(-90,-400,435), BOX_4(-90,-220,435)
+        collision avoidance coordinates when releasing: BOX_1(90, 400, 435), BOX_2(90, 220, 435), BOX_3(-90, 220, 435), BOX_4(-90, 400, 435)
+
+         
+        The program should always start and end with the robot arm going to its home position which is (270,0,504).
+         
         *The functions you can use are: 
             -go_to_location(X,Y,Z): Moves robot arm end effector to a location specified by XYZ coordinates. Returns nothing. 
             -grab(): Robot end effector grabs box. Returns nothing. 
@@ -104,10 +117,9 @@ gpt_call = openai.ChatCompletion.create(
         2. function() #explanation
         .
         .
-        
+        No need for a separate explanation. 
+        """}
 
-        No need for a separate explanation.
-        """} 
     ] 
 ) 
 gpt_response = gpt_call['choices'][0]['message']['content']

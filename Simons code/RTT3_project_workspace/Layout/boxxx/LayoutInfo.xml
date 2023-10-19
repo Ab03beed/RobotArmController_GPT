@@ -99,9 +99,9 @@
 			<TDModelUnit>0</TDModelUnit>
 			<TDModelMagni>3.0</TDModelMagni>
 			<FontSize>1</FontSize>
-			<PosX>440.000000</PosX>
+			<PosX>0.000000</PosX>
 			<PosY>-300.000000</PosY>
-			<PosZ>0.000000</PosZ>
+			<PosZ>-140.000000</PosZ>
 			<RotationOrder>0</RotationOrder>
 			<AngleX>90.000000</AngleX>
 			<AngleY>90.000000</AngleY>
@@ -125,9 +125,9 @@
 			<TDModelUnit>0</TDModelUnit>
 			<TDModelMagni>3.0</TDModelMagni>
 			<FontSize>1</FontSize>
-			<PosX>440.000000</PosX>
+			<PosX>0.000000</PosX>
 			<PosY>300.000000</PosY>
-			<PosZ>-0.000000</PosZ>
+			<PosZ>-140.000000</PosZ>
 			<RotationOrder>0</RotationOrder>
 			<AngleX>0.000000</AngleX>
 			<AngleY>90.000000</AngleY>
@@ -140,27 +140,53 @@
 		</Object>
 		<Object>
 			<Name/>
-			<Type>2</Type>
+			<Type>3</Type>
 			<BoxID/>
-			<Color>16777120</Color>
+			<Color>16752895</Color>
 			<Show>1</Show>
 			<ViewType>0</ViewType>
 			<AxisNumber>-1</AxisNumber>
-			<ChildrenNum>3</ChildrenNum>
+			<ChildrenNum>0</ChildrenNum>
 			<TDModelName/>
 			<TDModelUnit>1</TDModelUnit>
 			<TDModelMagni>1.0</TDModelMagni>
 			<FontSize>1</FontSize>
-			<PosX>190.000000</PosX>
-			<PosY>-200.000000</PosY>
-			<PosZ>155.000000</PosZ>
+			<PosX>0.000000</PosX>
+			<PosY>0.000000</PosY>
+			<PosZ>0.000000</PosZ>
 			<RotationOrder>0</RotationOrder>
 			<AngleX>0.000000</AngleX>
 			<AngleY>0.000000</AngleY>
 			<AngleZ>0.000000</AngleZ>
-			<SizeX>100.000000</SizeX>
-			<SizeY>100.000000</SizeY>
-			<SizeZ>100.000000</SizeZ>
+			<SizeX>590.000000</SizeX>
+			<SizeY>590.000000</SizeY>
+			<SizeZ>1.000000</SizeZ>
+			<MechaName/>
+			<InterferenceCheck>1</InterferenceCheck>
+		</Object>
+		<Object>
+			<Name/>
+			<Type>3</Type>
+			<BoxID/>
+			<Color>128</Color>
+			<Show>1</Show>
+			<ViewType>1</ViewType>
+			<AxisNumber>-1</AxisNumber>
+			<ChildrenNum>0</ChildrenNum>
+			<TDModelName/>
+			<TDModelUnit>1</TDModelUnit>
+			<TDModelMagni>1.0</TDModelMagni>
+			<FontSize>1</FontSize>
+			<PosX>0.000000</PosX>
+			<PosY>0.000000</PosY>
+			<PosZ>200.000000</PosZ>
+			<RotationOrder>0</RotationOrder>
+			<AngleX>0.000000</AngleX>
+			<AngleY>0.000000</AngleY>
+			<AngleZ>0.000000</AngleZ>
+			<SizeX>510.000000</SizeX>
+			<SizeY>510.000000</SizeY>
+			<SizeZ>1.000000</SizeZ>
 			<MechaName/>
 			<InterferenceCheck>1</InterferenceCheck>
 		</Object>
@@ -177,16 +203,16 @@
 			<TDModelUnit>1</TDModelUnit>
 			<TDModelMagni>1.0</TDModelMagni>
 			<FontSize>1</FontSize>
-			<PosX>110.000000</PosX>
-			<PosY>0.000000</PosY>
-			<PosZ>0.000000</PosZ>
+			<PosX>90.000000</PosX>
+			<PosY>-220.000000</PosY>
+			<PosZ>15.000000</PosZ>
 			<RotationOrder>0</RotationOrder>
 			<AngleX>-0.000000</AngleX>
 			<AngleY>0.000000</AngleY>
 			<AngleZ>0.000000</AngleZ>
-			<SizeX>100.000000</SizeX>
-			<SizeY>100.000000</SizeY>
-			<SizeZ>100.000000</SizeZ>
+			<SizeX>91.000000</SizeX>
+			<SizeY>91.000000</SizeY>
+			<SizeZ>190.000000</SizeZ>
 			<MechaName/>
 			<InterferenceCheck>1</InterferenceCheck>
 		</Object>
@@ -203,16 +229,16 @@
 			<TDModelUnit>1</TDModelUnit>
 			<TDModelMagni>1.0</TDModelMagni>
 			<FontSize>1</FontSize>
-			<PosX>110.000000</PosX>
-			<PosY>-110.000000</PosY>
-			<PosZ>0.000000</PosZ>
+			<PosX>90.000000</PosX>
+			<PosY>-400.000000</PosY>
+			<PosZ>15.000000</PosZ>
 			<RotationOrder>0</RotationOrder>
 			<AngleX>-0.000000</AngleX>
 			<AngleY>0.000000</AngleY>
 			<AngleZ>0.000000</AngleZ>
-			<SizeX>100.000000</SizeX>
-			<SizeY>100.000000</SizeY>
-			<SizeZ>100.000000</SizeZ>
+			<SizeX>91.000000</SizeX>
+			<SizeY>91.000000</SizeY>
+			<SizeZ>190.000000</SizeZ>
 			<MechaName/>
 			<InterferenceCheck>1</InterferenceCheck>
 		</Object>
@@ -229,16 +255,16 @@
 			<TDModelUnit>1</TDModelUnit>
 			<TDModelMagni>1.0</TDModelMagni>
 			<FontSize>1</FontSize>
-			<PosX>0.000000</PosX>
-			<PosY>-110.000000</PosY>
-			<PosZ>0.000000</PosZ>
+			<PosX>-90.000000</PosX>
+			<PosY>-400.000000</PosY>
+			<PosZ>15.000000</PosZ>
 			<RotationOrder>0</RotationOrder>
 			<AngleX>-0.000000</AngleX>
 			<AngleY>0.000000</AngleY>
 			<AngleZ>0.000000</AngleZ>
-			<SizeX>100.000000</SizeX>
-			<SizeY>100.000000</SizeY>
-			<SizeZ>100.000000</SizeZ>
+			<SizeX>91.000000</SizeX>
+			<SizeY>91.000000</SizeY>
+			<SizeZ>190.000000</SizeZ>
 			<MechaName/>
 			<InterferenceCheck>1</InterferenceCheck>
 		</Object>
@@ -246,33 +272,7 @@
 			<Name/>
 			<Type>2</Type>
 			<BoxID/>
-			<Color>12624127</Color>
-			<Show>1</Show>
-			<ViewType>0</ViewType>
-			<AxisNumber>-1</AxisNumber>
-			<ChildrenNum>3</ChildrenNum>
-			<TDModelName/>
-			<TDModelUnit>1</TDModelUnit>
-			<TDModelMagni>1.0</TDModelMagni>
-			<FontSize>1</FontSize>
-			<PosX>190.000000</PosX>
-			<PosY>200.000000</PosY>
-			<PosZ>155.000000</PosZ>
-			<RotationOrder>0</RotationOrder>
-			<AngleX>-0.000000</AngleX>
-			<AngleY>0.000000</AngleY>
-			<AngleZ>0.000000</AngleZ>
-			<SizeX>100.000000</SizeX>
-			<SizeY>100.000000</SizeY>
-			<SizeZ>100.000000</SizeZ>
-			<MechaName/>
-			<InterferenceCheck>1</InterferenceCheck>
-		</Object>
-		<Object>
-			<Name/>
-			<Type>2</Type>
-			<BoxID/>
-			<Color>8411135</Color>
+			<Color>16777120</Color>
 			<Show>1</Show>
 			<ViewType>0</ViewType>
 			<AxisNumber>-1</AxisNumber>
@@ -281,42 +281,16 @@
 			<TDModelUnit>1</TDModelUnit>
 			<TDModelMagni>1.0</TDModelMagni>
 			<FontSize>1</FontSize>
-			<PosX>110.000000</PosX>
-			<PosY>0.000000</PosY>
-			<PosZ>0.000000</PosZ>
+			<PosX>-90.000000</PosX>
+			<PosY>-220.000000</PosY>
+			<PosZ>15.000000</PosZ>
 			<RotationOrder>0</RotationOrder>
-			<AngleX>-0.000000</AngleX>
+			<AngleX>0.000000</AngleX>
 			<AngleY>0.000000</AngleY>
 			<AngleZ>0.000000</AngleZ>
-			<SizeX>100.000000</SizeX>
-			<SizeY>100.000000</SizeY>
-			<SizeZ>100.000000</SizeZ>
-			<MechaName/>
-			<InterferenceCheck>1</InterferenceCheck>
-		</Object>
-		<Object>
-			<Name/>
-			<Type>2</Type>
-			<BoxID/>
-			<Color>5724159</Color>
-			<Show>1</Show>
-			<ViewType>0</ViewType>
-			<AxisNumber>-1</AxisNumber>
-			<ChildrenNum>0</ChildrenNum>
-			<TDModelName/>
-			<TDModelUnit>1</TDModelUnit>
-			<TDModelMagni>1.0</TDModelMagni>
-			<FontSize>1</FontSize>
-			<PosX>110.000000</PosX>
-			<PosY>110.000000</PosY>
-			<PosZ>0.000000</PosZ>
-			<RotationOrder>0</RotationOrder>
-			<AngleX>-0.000000</AngleX>
-			<AngleY>0.000000</AngleY>
-			<AngleZ>0.000000</AngleZ>
-			<SizeX>100.000000</SizeX>
-			<SizeY>100.000000</SizeY>
-			<SizeZ>100.000000</SizeZ>
+			<SizeX>91.000000</SizeX>
+			<SizeY>91.000000</SizeY>
+			<SizeZ>190.000000</SizeZ>
 			<MechaName/>
 			<InterferenceCheck>1</InterferenceCheck>
 		</Object>
@@ -333,16 +307,94 @@
 			<TDModelUnit>1</TDModelUnit>
 			<TDModelMagni>1.0</TDModelMagni>
 			<FontSize>1</FontSize>
-			<PosX>0.000000</PosX>
-			<PosY>110.000000</PosY>
-			<PosZ>0.000000</PosZ>
+			<PosX>90.000000</PosX>
+			<PosY>400.000000</PosY>
+			<PosZ>15.000000</PosZ>
 			<RotationOrder>0</RotationOrder>
 			<AngleX>-0.000000</AngleX>
 			<AngleY>0.000000</AngleY>
 			<AngleZ>0.000000</AngleZ>
-			<SizeX>100.000000</SizeX>
-			<SizeY>100.000000</SizeY>
-			<SizeZ>100.000000</SizeZ>
+			<SizeX>91.000000</SizeX>
+			<SizeY>91.000000</SizeY>
+			<SizeZ>190.000000</SizeZ>
+			<MechaName/>
+			<InterferenceCheck>1</InterferenceCheck>
+		</Object>
+		<Object>
+			<Name/>
+			<Type>2</Type>
+			<BoxID/>
+			<Color>8411135</Color>
+			<Show>1</Show>
+			<ViewType>0</ViewType>
+			<AxisNumber>-1</AxisNumber>
+			<ChildrenNum>0</ChildrenNum>
+			<TDModelName/>
+			<TDModelUnit>1</TDModelUnit>
+			<TDModelMagni>1.0</TDModelMagni>
+			<FontSize>1</FontSize>
+			<PosX>90.000000</PosX>
+			<PosY>220.000000</PosY>
+			<PosZ>15.000000</PosZ>
+			<RotationOrder>0</RotationOrder>
+			<AngleX>-0.000000</AngleX>
+			<AngleY>0.000000</AngleY>
+			<AngleZ>0.000000</AngleZ>
+			<SizeX>91.000000</SizeX>
+			<SizeY>91.000000</SizeY>
+			<SizeZ>190.000000</SizeZ>
+			<MechaName/>
+			<InterferenceCheck>1</InterferenceCheck>
+		</Object>
+		<Object>
+			<Name/>
+			<Type>2</Type>
+			<BoxID/>
+			<Color>12624127</Color>
+			<Show>1</Show>
+			<ViewType>0</ViewType>
+			<AxisNumber>-1</AxisNumber>
+			<ChildrenNum>0</ChildrenNum>
+			<TDModelName/>
+			<TDModelUnit>1</TDModelUnit>
+			<TDModelMagni>1.0</TDModelMagni>
+			<FontSize>1</FontSize>
+			<PosX>-90.000000</PosX>
+			<PosY>220.000000</PosY>
+			<PosZ>15.000000</PosZ>
+			<RotationOrder>0</RotationOrder>
+			<AngleX>-0.000000</AngleX>
+			<AngleY>0.000000</AngleY>
+			<AngleZ>0.000000</AngleZ>
+			<SizeX>91.000000</SizeX>
+			<SizeY>91.000000</SizeY>
+			<SizeZ>190.000000</SizeZ>
+			<MechaName/>
+			<InterferenceCheck>1</InterferenceCheck>
+		</Object>
+		<Object>
+			<Name/>
+			<Type>2</Type>
+			<BoxID/>
+			<Color>5724159</Color>
+			<Show>1</Show>
+			<ViewType>0</ViewType>
+			<AxisNumber>-1</AxisNumber>
+			<ChildrenNum>0</ChildrenNum>
+			<TDModelName/>
+			<TDModelUnit>1</TDModelUnit>
+			<TDModelMagni>1.0</TDModelMagni>
+			<FontSize>1</FontSize>
+			<PosX>-90.000000</PosX>
+			<PosY>400.000000</PosY>
+			<PosZ>15.000000</PosZ>
+			<RotationOrder>0</RotationOrder>
+			<AngleX>-0.000000</AngleX>
+			<AngleY>0.000000</AngleY>
+			<AngleZ>0.000000</AngleZ>
+			<SizeX>91.000000</SizeX>
+			<SizeY>91.000000</SizeY>
+			<SizeZ>190.000000</SizeZ>
 			<MechaName/>
 			<InterferenceCheck>1</InterferenceCheck>
 		</Object>
