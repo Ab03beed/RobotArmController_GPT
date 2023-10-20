@@ -1,24 +1,30 @@
 from Modules.robotController import RobotController
 import keyboard
 import time
-
+    #192.168.0.71
 r1 = RobotController("127.0.0.1", 10002, "127.0.0.1", 12345)
 end = False
 
-def fetchBox(boxPos, boxDestPos):
-    print("\n'B' --> MOV TO BOX POS \n'G' --> GRAB \n'R' --> RELEASE \n'D' --> DESTINATION POS  \n'H' --> HOME POS \n'ESC' --> EXIT")
+def fetchBox(Pos):
+    print("\n'B' --> mov to BOX pos \n'N' --> mov to ABOVE BOX pos \n'-----------------\n'G' --> GRAB \n'R' --> RELEASE \n----------------\n'D' --> mov to RELEASE pos \n'f' --> mov to ABOVE BOX pos \n'H' --> HOME POS \n'ESC' --> EXIT")
     global end
     while not end:
         res = ""
         command = keyboard.read_event(suppress=True).name #Wait for user to press a key
         if command == 'b':
-            res = r1.sendTo(r1.robotSoc, boxPos)
+            res = r1.sendTo(r1.robotSoc, Pos[0])
+        elif command =='n':
+            res = r1.sendTo(r1.robotSoc, Pos[1])
         elif command == 'g':
-            res = r1.sendTo(r1.raspSoc, f"GRAB")
+            res="grab completed"
+            #res = r1.sendTo(r1.raspSoc, f"GRAB")
         elif command == 'r':
-            res = r1.sendTo(r1.raspSoc, f"RELEASE")
+            res="release completed"
+            #res = r1.sendTo(r1.raspSoc, f"RELEASE")
         elif command == 'd':
-            res = r1.sendTo(r1.robotSoc, boxDestPos)
+            res = r1.sendTo(r1.robotSoc, Pos[2])
+        elif command == 'f':
+            res = r1.sendTo(r1.robotSoc, Pos[3])
         elif command == 'h':
             res = r1.sendTo(r1.robotSoc, f"270, 0, 504")
         elif command == 'esc':
@@ -33,19 +39,14 @@ def fetchBox(boxPos, boxDestPos):
 
 
 def main():
+    #box pos , above box pos, release pos, above release pos
+    box1 = ["90,-220,245", "90,-220,445", "90,400,245",  "90, 400, 435"]
+    box2 = ["90,-400,245", "90,-400,435", "90, 220, 245", "90, 220, 435"]
+    box3 = ["-90,-400,245", "-90,-400,435", "-90,220,245", "-90, 220, 435"]
+    box4 = ["-90,-220,245", "-90,-220,435", "-90,400,245",  "-90, 400, 435"]
 
-    box1_Pos = f"410, -200, 300"
-    box1_DestPos = f"410, 200, 300"
 
-    box2_Pos = f"410, -200, 300"
-    box2_DestPos = f"410, 200, 300"
-    
-    box3_Pos = f"410, -200, 300"
-    box3_DestPos = f"410, 200, 300"
 
-    box4_Pos = f"410, -200, 300"
-    box4_DestPos = f"410, 200, 300"
-    
 
     print("\n'1' --> Box 1 \n'2' --> Box 2 \n'3' --> Box 3 \n'4' --> Box 4 \n'ESC' --> EXIT")
     box = keyboard.read_event(suppress=True) #Wait for user to press a key
@@ -55,20 +56,24 @@ def main():
     while not end:
 
         if box.name == '1':
-            fetchBox(box1_Pos, box1_DestPos)
+            print(f"\nYou have chosen BOX_{box.name}")
+            fetchBox(box1)
         elif box.name == '2':
-            fetchBox(box2_Pos, box2_DestPos)
+            print(f"\nYou have chosen BOX_{box.name}")
+            fetchBox(box2)
         elif box.name == '3':
-            fetchBox(box3_Pos, box3_DestPos)
+            print(f"\nYou have chosen BOX_{box.name}")
+            fetchBox(box3)
         elif box.name == '4':
-            fetchBox(box4_Pos, box4_DestPos)
+            print(f"\nYou have chosen BOX_{box.name}")
+            fetchBox(box4)
         elif box.name == 'esc':
             print("EXITING...")
             end = True
         else:
             print("Invaild command")
-
-        time.sleep(0.2)    
+        
+        time.sleep(0.2)  
 
 
 

@@ -9,15 +9,15 @@ class GPT_API:
 
         # Lists of possible transcriptions for each box to handle misinterpretations
         # or different pronunciations/accent variations
-        self._box_1_variants = [ 
+        self.box_1_variants = [ 
             "box one", "box 1", "box won", "barks one", "fox one", "books one",  
             "boks one", "bok one", "boxen one", "box on", "bax one", "bux one", 
             "boks ett", "bok ett", "box ett", "bex one", "bogs one", "bog one", 
             "buck one", "buck ett", "bokk one", "bokks one", "boxen ett", "box on ett", 
             "boks on", "boxen on", "bok on", "boxen won", "boxen ett", "bokks won",  
-            "bokks on", "bokks ett", "bex won", "bex on", "bex ett" 
+            "bokks on", "bokks ett", "bex won", "bex on", "bex ett", "volkswagen" 
         ] 
-        self._box_2_variants = [ 
+        self.box_2_variants = [ 
             "books to","box two", "box 2", "box to", "box too", "barks two", "fox two", "books two", 
             "boks two", "bok two", "boxen two", "box tu", "bax two", "bux two", 
             "boks två", "bok två", "box två", "bex two", "bogs two", "bog two", 
@@ -25,7 +25,7 @@ class GPT_API:
             "boks tu", "boxen tu", "bok tu", "boxen too", "boxen två", "bokks too",  
             "bokks tu", "bokks två", "bex too", "bex tu", "bex två" 
         ] 
-        self._box_3_variants = [ 
+        self.box_3_variants = [ 
             "box three", "box 3", "barks three", "fox three", "books three", 
             "boks three","books 3", "bok three", "boxen three", "box tree", "bax three", "bux three", 
             "boks tre", "bok tre", "box tre", "bex three", "bogs three", "bog three", 
@@ -33,36 +33,51 @@ class GPT_API:
             "boks tree", "boxen tree", "bok tree", "boxen trey", "boxen tre", "bokks tree",  
             "bokks trey", "bokks tre", "bex tree", "bex trey", "bex tre" 
         ] 
+        self.box_4_variants = [
+            "bx 4.","box 4.","box 4","box for", "bucks for","box four","fox four", "box before","box floor","pox for", "blocks for",
+            "barks for","box for the","books for","box before the", "boss for","boat's for","box for the win",
+            "bucks for the","boxing for","box before four","box for you","backs for","boxing four","box of four",
+            "box or four","boxing for the","box it for","bucks for the win","boxed for","books for the","box it before",
+            "box or the four"
+        ]
 
 
     def _gptCall(self, which_box):
         gpt_call = gpt_call = openai.ChatCompletion.create( 
-            model="gpt-3.5-turbo", 
+            model="gpt-4", 
             messages=[ 
-                {"role": "system", "content": "You are an experienced robot operations coder that will help the user to code a collaborative robot."}, 
-                {"role": "user", "content": f""" 
-                Imagine we are working with a collaborative robot with the task of moving boxes from a "pick-up table" to a "release table".  
-                The three boxes is called BOX_1, BOX_2 and BOX_3. The position of boxes at the pick up table is given in XYZ coordinates: BOX_1(402,-203,100), BOX_2(300,-203,100), BOX_3(203,-203,100).  
-                The the cordinate to release boxes at the release table is: (400,100,100).
-                The home position for the robot arm is (270,0,504).
-                
-                Each time the robot arm has succesfully accomplished what the user asked for, it must move back to its home position, this is very important.
-                
-                The functions you can use are: 
-                go_to_location(X,Y,Z): Moves robot arm end effector to a location specified by XYZ coordinates. Returns nothing. 
-                grab(): Robot end effector grabs box. Returns nothing. 
-                release(): Robot arm end effector releases box. 
-            
-                Please have the robot move {which_box} from its pick-up position to its release-position. Return the order in how functions are used, 
-                together with a very brief explanation of each step and keep it on the same row as the function that is used. 
-                Like this:
-                1. function() #explanation 
-                2. function() #explanation
-                .
-                .
-                
-                No need for a separate explanation.
-                """}
+        {"role": "system", "content": "You are an experienced robot operations coder that will help the user to code a collaborative robot."}, 
+        {"role": "user", "content": f"""
+        Imagine we are working with a collaborative robot with the task of moving four boxes from a "grabbing table" to a "release table".  
+        The four boxes is called BOX_1, BOX_2 and BOX_3 and BOX_4. 
+        
+        The coordinate (XYZ) to grab boxes: BOX_1(90,-220,245), BOX_2(90,-400,245), BOX_3(-90,-400,245), BOX_4(-90,-220,245).  .  
+         
+        The the cordinate (XYZ) to release boxes: BOX_1(90, 400, 245), BOX_2(90, 220, 245), BOX_3(-90, 220, 245), BOX_4(-90, 400, 245).
+        
+       When going to and from grab and release positions, the robot arm should avoid collision with other boxes by first visiting these coordinates:
+        collision avoidance coordinates when grabbing:BOX_1(90,-220,435), BOX_2(90,-400,435), BOX_3(-90,-400,435), BOX_4(-90,-220,435)
+        collision avoidance coordinates when releasing: BOX_1(90, 400, 435), BOX_2(90, 220, 435), BOX_3(-90, 220, 435), BOX_4(-90, 400, 435)
+
+        The home position (XYZ) for the robot arm is: (270,0,504).
+         
+        The program should always end with the robot arm going to its home position.
+         
+        *The functions you can use are: 
+            -go_to_location(X,Y,Z): Moves robot arm end effector to a location specified by XYZ coordinates. Returns nothing. 
+            -grab(): Robot end effector grabs box. Returns nothing. 
+            -release(): Robot arm end effector releases box. 
+        
+        Please have the robot move {which_box} from its pick-up position to its release-position. Return the order in how functions are used, 
+        together with a very brief explanation of each step and keep it on the same row as the function that is used. 
+        Like this:
+        1. function() #explanation 
+        2. function() #explanation
+        .
+        .
+        No need for a separate explanation. 
+        """}
+
             ]
         ) 
             
@@ -71,12 +86,14 @@ class GPT_API:
     def ask(self, task):
         
         # Check which box the user referred to in their voice command
-        if any(variant in task for variant in self._box_1_variants): 
+        if any(variant in task for variant in self.box_1_variants): 
             which_box = "BOX_1" 
-        elif any(variant in task for variant in self._box_2_variants): 
+        elif any(variant in task for variant in self.box_2_variants): 
             which_box = "BOX_2" 
-        elif any(variant in task for variant in self._box_3_variants): 
+        elif any(variant in task for variant in self.box_3_variants): 
             which_box = "BOX_3" 
+        elif any(variant in task for variant in self.box_4_variants): 
+            which_box = "BOX_4" 
         else: 
             print("Invalid box name in voice command.") 
             exit()
