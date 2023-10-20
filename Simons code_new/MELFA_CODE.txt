@@ -1,0 +1,13 @@
+Servo On
+C_Com(2)="ETH:127.0.0.1,10002"  'Setting the configrations of the communication line 2 (com2)
+Open "COM2:" As #1              'Open the Com2
+Dly 1                           'Delay in seconds
+Ovrd 30
+Accel 1,1                        '
+Servo On                        'Setting Servo on
+*loopStart
+Input #1, P1.X,P1.Y,P1.Z        'Getting needed data through com2                   'Sending p1 through com2, reciveing it in py
+Mov P1                         'Apply p1 as movment
+Print #1, "MOVE COMPLETED"
+GoSub *loopStart
+End
