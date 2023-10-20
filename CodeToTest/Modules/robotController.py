@@ -29,6 +29,7 @@ class RobotController:
 
         if "COMPLETED" not in response:
             print("Something went wrong while operating!") 
+            exit()
         else:
             return response
 

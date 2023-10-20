@@ -1,24 +1,20 @@
-import pyaudio
-import speech_recognition as sr
+import azure.cognitiveservices.speech as speechsdk
+import os
 import keyboard
 import time
 
 class SpeechToText:
 
     def __init__(self):
-        self.recognizer = sr.Recognizer()
-        self.audio = pyaudio.PyAudio()
-        self.format = pyaudio.paInt16
-        self.rate = 44100
-        self.chunk = 1024
-        self.channels = 1
+        self.speech_config = speechsdk.SpeechConfig(subscription=os.environ.get('SPEECH_KEY'), region=os.environ.get('SPEECH_REGION'))
+        self.speech_config.speech_recognition_language="en-US"
+        self.audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+        self.speech_recognizer = speechsdk.SpeechRecognizer(speech_config=self.speech_config, audio_config=self.audio_config)
+        print('init finished')
 
 
     def talk(self):
-        stream = self.audio.open(format=self.format, rate=self.rate, channels=self.channels, input=True, frames_per_buffer=self.chunk)
-        frames = []
         commands = ['t','esc']
-
         print("\nPress 'T' to talk or 'ESC' to exit...")
         #key = keyboard.read_event(suppress=True) #Wait for user to press a key
         
@@ -28,13 +24,12 @@ class SpeechToText:
             command = key.name
 
             if(command == 't'):
-                print("Listning...  Press 'I' to interrupt")
-                while True:
-                    data =  stream.read(self.chunk)
-                    frames.append(data)
-                    if keyboard.is_pressed('I'):
-                        print("Interrupted!")
-                        break
+                print("Listning...")
+                speech_recognition_result = self.speech_recognizer.recognize_once_async().get()
+                if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
+                    print("Recognized: {}".format(speech_recognition_result.text))
+                else:
+                    return 'none'
             elif(command == 'esc'):
                 print("Good bye!")
                 return "exit"
@@ -42,26 +37,5 @@ class SpeechToText:
                 print("Invaild command --> Press 'T' to talk or 'ESC' to exit...")
                 time.sleep(0.5)
 
-        # Stop and close the stream
-        stream.stop_stream()
-        stream.close()
-
-        # Convert the recorded frames to an AudioData instance
-        audio_data = sr.AudioData(b''.join(frames), self.rate, self.audio.get_sample_size(self.format))
-
-        return self._convertAudioToText(audio_data)
-
-    def _convertAudioToText(self, audio):
-        try:
-            text = self.recognizer.recognize_google(audio).lower()
-            print("I've heard: ", text, '\n') 
-            return text
-        except sr.UnknownValueError:
-            # Handle unrecognized audio
-            print("Couldn't understand what you said")
-            return "none"
-        except sr.RequestError:
-            # Handle request errors
-            print("Could not request results from the speech recognition service.")
-            return "none"
-        
+        print(speech_recognition_result.text)
+        return speech_recognition_result.text.lower()
