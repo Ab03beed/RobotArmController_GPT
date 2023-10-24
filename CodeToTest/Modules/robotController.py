@@ -28,7 +28,7 @@ class RobotController:
         response = target.recv(1024).decode()
 
         if "COMPLETED" not in response:
-            print("Something went wrong while operating!") 
+            print(f"Something went wrong while operating!, response is:{response}")
             exit()
         else:
             return response
