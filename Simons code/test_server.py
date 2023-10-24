@@ -24,9 +24,9 @@ def server():
                 print(f'Received: {data}')
 
                 if data == "GRAB":
-                    c.sendall(b"GRAB COMPLETE")
+                    c.sendall(b"GRAB COMPLETED")
                 elif data == "RELEASE":
-                    c.sendall(b"RELEASE COMPLETE")
+                    c.sendall(b"RELEASE COMPLETED")
                 else:
                     c.sendall(b"not correct message")
 
