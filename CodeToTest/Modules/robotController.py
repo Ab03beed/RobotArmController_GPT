@@ -5,11 +5,11 @@ class RobotController:
     #parametrized cunstructor
     def __init__(self, robot_host, robot_port, pi_host, pi_port):
 
-        self.robotConfig = (robot_host, robot_port)
-        self.raspConfig = (pi_host, pi_port)
+        robotConfig = (robot_host, robot_port)
+        raspConfig = (pi_host, pi_port)
 
-        self.robotSoc = self._establish_connection(self.robotConfig)
-        self.raspSoc  = self._establish_connection(self.raspConfig)
+        self.robotSoc = self._establish_connection(robotConfig)
+        self.raspSoc  = self._establish_connection(raspConfig)
         
 
     #Private function that create and check if the connection is OK.
@@ -34,18 +34,6 @@ class RobotController:
             return response
 
 
-    
-
-
-
-    
-#establish_connection ----- establish_connection()
-#save_command_to_file
-#send_to_robotic_arm ------ sendTo()
-#send_to_raspberry_pi ----- sendTo()
-#real_go_to_location   ---  sendTo()
-#real_grab             ---  sendTo()
-#real_release          ---  sendTo()
 
 
 
