@@ -7,7 +7,7 @@ import time
 
 def main():
     #Object of RobotController class
-    r1 = RobotController("127.0.0.1", 10002, "127.0.0.1", 12349)
+    r1 = RobotController("192.168.0.20", 10002, "192.168.0.71", 12348)
     #Object of SpeechToText class
     sp = SpeechToText()
     #Object of GPT_API class
@@ -23,7 +23,6 @@ def main():
             gptResponse = gpt.ask(task)
 
             print(gptResponse)
-
             print("\nPress ENTER to preform the action or ESC to exit: ")
             print("Press anything eles for new task\n")
 
