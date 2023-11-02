@@ -2,7 +2,7 @@ from Modules.robotController import RobotController
 import keyboard
 import time
     #192.168.0.71
-r1 = RobotController("127.0.0.1", 10002, "127.0.0.1", 12345)
+r1 = RobotController("192.168.0.20", 10002, "192.168.0.71", 12348)
 end = False
 
 def fetchBox(Pos):
@@ -12,15 +12,16 @@ def fetchBox(Pos):
         res = ""
         command = keyboard.read_event(suppress=True).name #Wait for user to press a key
         if command == 'b':
+            print("B")
             res = r1.sendTo(r1.robotSoc, Pos[0])
         elif command =='n':
             res = r1.sendTo(r1.robotSoc, Pos[1])
         elif command == 'g':
             res="grab completed"
-            #res = r1.sendTo(r1.raspSoc, f"GRAB")
+            res = r1.sendTo(r1.raspSoc, f"GRAB")
         elif command == 'r':
             res="release completed"
-            #res = r1.sendTo(r1.raspSoc, f"RELEASE")
+            res = r1.sendTo(r1.raspSoc, f"RELEASE")
         elif command == 'd':
             res = r1.sendTo(r1.robotSoc, Pos[2])
         elif command == 'f':
@@ -40,10 +41,10 @@ def fetchBox(Pos):
 
 def main():
     #box pos , above box pos, release pos, above release pos
-    box1 = ["90,-220,245", "90,-220,445", "90,400,245",  "90, 400, 435"]
-    box2 = ["90,-400,245", "90,-400,435", "90, 220, 245", "90, 220, 435"]
-    box3 = ["-90,-400,245", "-90,-400,435", "-90,220,245", "-90, 220, 435"]
-    box4 = ["-90,-220,245", "-90,-220,435", "-90,400,245",  "-90, 400, 435"]
+    box1 = ["90,-220,245", "90,-220,465", "90,400,245",  "90, 400, 465"]
+    box2 = ["90,-400,245", "90,-400,465", "90, 220, 245", "90, 220, 465"]
+    box3 = ["-90,-400,245", "-90,-400,465", "-90,220,245", "-90, 220, 465"]
+    box4 = ["-90,-220,245", "-90,-220,465", "-90,400,245",  "-90, 400, 465"]
 
 
 
