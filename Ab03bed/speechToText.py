@@ -36,6 +36,5 @@ class SpeechToText:
                 print("Invaild command --> Press 'T' to talk or 'ESC' to exit...")
                 time.sleep(0.5)
 
-        print(speech_recognition_result.text)
         return speech_recognition_result.text.lower()
     

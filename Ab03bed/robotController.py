@@ -17,6 +17,7 @@ class RobotController:
         soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             soc.connect(config)
+            print(f"Connected successfully to: {config}")
             return soc
         except:
             print(f"Couldn't connect to {repr(config)}!")

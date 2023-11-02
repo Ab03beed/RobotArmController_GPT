@@ -1,6 +1,6 @@
 import socket
 HOST = '127.0.0.1'
-PORT = 12345
+PORT = 12349
 
 def server():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Create a socket object

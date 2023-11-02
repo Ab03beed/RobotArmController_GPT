@@ -46,14 +46,16 @@ def main():
     box4 = ["-90,-220,245", "-90,-220,435", "-90,400,245",  "-90, 400, 435"]
 
 
+    
 
-
-    print("\n'1' --> Box 1 \n'2' --> Box 2 \n'3' --> Box 3 \n'4' --> Box 4 \n'ESC' --> EXIT")
-    box = keyboard.read_event(suppress=True) #Wait for user to press a key
-    time.sleep(0.5)
+    
     global end
 
     while not end:
+
+        print("\n'1' --> Box 1 \n'2' --> Box 2 \n'3' --> Box 3 \n'4' --> Box 4 \n'ESC' --> EXIT")
+        box = keyboard.read_event(suppress=True) #Wait for user to press a key
+        time.sleep(0.5)
 
         if box.name == '1':
             print(f"\nYou have chosen BOX_{box.name}")
