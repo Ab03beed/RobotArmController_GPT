@@ -6,11 +6,10 @@ import time
 class SpeechToText:
 
     def __init__(self):
-        self.speech_config = speechsdk.SpeechConfig(subscription=os.environ.get('SPEECH_KEY'), region=os.environ.get('SPEECH_REGION'))
-        self.speech_config.speech_recognition_language="en-US"
-        self.audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
-        self.speech_recognizer = speechsdk.SpeechRecognizer(speech_config=self.speech_config, audio_config=self.audio_config)
-        print('init finished')
+        speech_config = speechsdk.SpeechConfig(subscription=os.environ.get('SPEECH_KEY'), region=os.environ.get('SPEECH_REGION'))
+        speech_config.speech_recognition_language="en-US"
+        audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+        self.speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
 
 
     def talk(self):
@@ -39,3 +38,4 @@ class SpeechToText:
 
         print(speech_recognition_result.text)
         return speech_recognition_result.text.lower()
+    

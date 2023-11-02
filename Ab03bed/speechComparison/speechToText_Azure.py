@@ -5,7 +5,7 @@ import time
 speech_config = speechsdk.SpeechConfig(subscription=os.environ.get('SPEECH_KEY'), region=os.environ.get('SPEECH_REGION'))
 speech_config.speech_recognition_language="en-US"
 
-audio_config = speechsdk.audio.AudioConfig(filename='D:/StrangeFiles/MIUN/ROBOT/SIMS/Ab03bed/speechComparison/voiceCommand.wav')
+audio_config = speechsdk.audio.AudioConfig(filename='C:/Users/abdah/OneDrive/Documents/GitHub/SIMS/Ab03bed/speechComparison/voiceCommand.wav')
 speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
 
 total = 0
@@ -14,7 +14,7 @@ total = 0
 for i in range(10):
     speech_config = speechsdk.SpeechConfig(subscription=os.environ.get('SPEECH_KEY'), region=os.environ.get('SPEECH_REGION'))
     speech_config.speech_recognition_language="en-US"
-    audio_config = speechsdk.audio.AudioConfig(filename='D:/StrangeFiles/MIUN/ROBOT/SIMS/Ab03bed/speechComparison/voiceCommand.wav')
+    audio_config = speechsdk.audio.AudioConfig(filename='C:/Users/abdah/OneDrive/Documents/GitHub/SIMS/Ab03bed/speechComparison/voiceCommand.wav')
     speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
     startTime = time.time()
     speech_recognition_result = speech_recognizer.recognize_once_async().get()
